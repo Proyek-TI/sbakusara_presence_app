@@ -1,1 +1,2 @@
 export 'package:sbakusara_presence_app/infrastructure/navigation/bindings/controllers/home_controller_binding.dart'; 
+export 'package:sbakusara_presence_app/infrastructure/navigation/bindings/controllers/splash_controller.binding.dart'; 
