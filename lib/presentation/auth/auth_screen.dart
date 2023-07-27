@@ -93,11 +93,13 @@ class AuthScreen extends GetView<AuthController> {
                     height: 40,
                     child: GetBuilder<AuthController>(
                       builder: (controller) => ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (controller.loginFormKey.currentState!
                               .validate()) {
-                            controller.userLogin(
+                            await controller.userLogin(
                                 controller.unameC.text, controller.passC.text);
+                            controller.unameC.clear();
+                            controller.passC.clear();
                           }
                         },
                         style: ElevatedButton.styleFrom(

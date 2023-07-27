@@ -3,6 +3,13 @@ import 'package:get/get.dart';
 import 'package:sbakusara_presence_app/data/services/api_services.dart';
 
 class AuthController extends GetxController {
+  @override
+  void onClose() {
+    super.onClose();
+    unameC.dispose();
+    passC.dispose();
+  }
+
   final apiService = ApiServices();
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
