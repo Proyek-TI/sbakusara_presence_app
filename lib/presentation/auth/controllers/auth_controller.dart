@@ -6,6 +6,8 @@ class AuthController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    unameC.clear();
+    passC.clear();
     unameC.dispose();
     passC.dispose();
   }

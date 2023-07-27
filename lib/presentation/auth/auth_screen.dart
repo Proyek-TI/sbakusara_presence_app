@@ -98,8 +98,6 @@ class AuthScreen extends GetView<AuthController> {
                               .validate()) {
                             await controller.userLogin(
                                 controller.unameC.text, controller.passC.text);
-                            controller.unameC.clear();
-                            controller.passC.clear();
                           }
                         },
                         style: ElevatedButton.styleFrom(
