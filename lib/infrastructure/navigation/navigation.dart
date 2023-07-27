@@ -28,7 +28,7 @@ class Nav {
   static List<GetPage> routes = [
     GetPage(
       name: Routes.homeUser,
-      page: () => const HomeUserScreen(),
+      page: () => HomeUserScreen(),
       binding: HomeUserControllerBinding(),
       transition: Transition.cupertino,
     ),
@@ -48,6 +48,12 @@ class Nav {
       name: Routes.homeAdmin,
       page: () => const HomeAdminScreen(),
       binding: HomeAdminControllerBinding(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: Routes.dashboardUser,
+      page: () => const DashboardUserScreen(),
+      binding: DashboardUserControllerBinding(),
       transition: Transition.cupertino,
     ),
   ];

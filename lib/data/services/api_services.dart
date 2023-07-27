@@ -30,7 +30,7 @@ class ApiServices {
           Get.snackbar('Berhasil login', 'Semoga harimu menyenangkan ^-^');
           Get.offAllNamed(Routes.homeUser);
         } else if (request.data['data']['role'] == 'isAdmin') {
-          Get.offAllNamed(Routes.splash);
+          Get.offAllNamed(Routes.homeAdmin);
         }
       } else {
         Get.snackbar('Error', 'Email/Kata sandi salah');

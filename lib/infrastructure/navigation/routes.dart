@@ -4,7 +4,8 @@ class Routes {
   }
 
   static const auth = '/auth';
+  static const homeAdmin = '/home-admin';
   static const homeUser = '/home-user';
   static const splash = '/splash';
-  static const homeAdmin = '/home-admin';
+  static const dashboardUser = '/dashboard-user';
 }
