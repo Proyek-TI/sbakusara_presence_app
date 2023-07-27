@@ -7,8 +7,10 @@ import 'controllers/splash_controller.dart';
 
 class SplashScreen extends GetView<SplashController> {
   SplashScreen({Key? key}) : super(key: key);
+  
   @override
   final SplashController controller = Get.put(SplashController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

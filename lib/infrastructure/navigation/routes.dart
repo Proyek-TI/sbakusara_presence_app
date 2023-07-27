@@ -5,4 +5,5 @@ class Routes {
 
   static const home = '/home';
   static const splash = '/splash';
+  static const auth = '/auth';
 }
