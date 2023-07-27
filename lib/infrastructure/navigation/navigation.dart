@@ -32,5 +32,11 @@ class Nav {
       binding: HomeControllerBinding(),
       transition: Transition.cupertino,
     ),
+    GetPage(
+      name: Routes.splash,
+      page: () => SplashScreen(),
+      binding: SplashControllerBinding(),
+      transition: Transition.cupertino,
+    ),
   ];
 }
