@@ -44,6 +44,7 @@ class AuthScreen extends GetView<AuthController> {
                   // textformfield username
                   TextFormField(
                     controller: controller.unameC,
+                    textInputAction: TextInputAction.next,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) => controller.validateUname(value),
                     decoration: const InputDecoration(
@@ -64,6 +65,7 @@ class AuthScreen extends GetView<AuthController> {
                   GetBuilder<AuthController>(
                     builder: (controller) => TextFormField(
                       controller: controller.passC,
+                      textInputAction: TextInputAction.done,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) => controller.validateUname(value),
                       obscureText: controller.passwordObscureText,
