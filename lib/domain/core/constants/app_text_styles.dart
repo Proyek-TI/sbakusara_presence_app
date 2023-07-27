@@ -26,9 +26,27 @@ class AppTextStyle {
         fontSize: 24,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w600,
         height: 32 / 24,
         letterSpacing: 0,
+      );
+
+  static TextStyle get headTitleStyle => GoogleFonts.inter(
+        fontSize: 24,
+        decoration: TextDecoration.none,
+        fontStyle: FontStyle.normal,
+        fontWeight: FontWeight.w600,
+        height: 32 / 24,
+        letterSpacing: 0,
+      );
+
+  static TextStyle get headSubtitleStyle => GoogleFonts.inter(
+        fontSize: 14,
+        decoration: TextDecoration.none,
+        fontStyle: FontStyle.normal,
+        fontWeight: FontWeight.w400,
+        height: 32 / 24,
+        letterSpacing: 0.25,
       );
 
   static TextStyle get tileTitleStyle => GoogleFonts.inter(
@@ -56,6 +74,15 @@ class AppTextStyle {
         fontWeight: FontWeight.w400,
         height: 20 / 14,
         letterSpacing: 0.25,
+      );
+
+  static TextStyle get labelTextStyle => GoogleFonts.inter(
+        fontSize: 14,
+        decoration: TextDecoration.none,
+        fontStyle: FontStyle.normal,
+        fontWeight: FontWeight.w600,
+        height: 20 / 14,
+        letterSpacing: 0.1,
       );
 
   static TextStyle get helperinfoStyle => GoogleFonts.inter(
