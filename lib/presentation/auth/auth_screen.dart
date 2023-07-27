@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:iconify_flutter/icons/mdi.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_color_styles.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_text_styles.dart';
-import 'package:sbakusara_presence_app/infrastructure/navigation/routes.dart';
 
 import 'controllers/auth_controller.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
@@ -92,21 +91,25 @@ class AuthScreen extends GetView<AuthController> {
                   SizedBox(
                     width: Get.width,
                     height: 40,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (controller.loginFormKey.currentState!.validate()) {
-                          Get.offAllNamed(Routes.home);
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColorStyle.primary500,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
+                    child: GetBuilder<AuthController>(
+                      builder: (controller) => ElevatedButton(
+                        onPressed: () {
+                          if (controller.loginFormKey.currentState!
+                              .validate()) {
+                            controller.userLogin(
+                                controller.unameC.text, controller.passC.text);
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColorStyle.primary500,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        'Login',
-                        style: AppTextStyle.labelTextStyle,
+                        child: Text(
+                          'Login',
+                          style: AppTextStyle.labelTextStyle,
+                        ),
                       ),
                     ),
                   ),

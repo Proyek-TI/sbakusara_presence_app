@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sbakusara_presence_app/data/services/api_services.dart';
 
 class AuthController extends GetxController {
+  final apiService = ApiServices();
+
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   // TextEditingController
@@ -24,8 +27,8 @@ class AuthController extends GetxController {
     if (value == null || value.isEmpty) {
       return "Username tidak boleh kosong";
     }
-    if (value.length < 6) {
-      return 'Minimal 6 karakter';
+    if (value.length < 4) {
+      return 'Minimal 4 karakter';
     }
     return null;
   }
@@ -40,5 +43,11 @@ class AuthController extends GetxController {
     }
 
     return null;
+  }
+
+  ///login
+  Future<void> userLogin(String username, String password) async {
+    await apiService.login(username, password);
+    update();
   }
 }
