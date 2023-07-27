@@ -4,18 +4,18 @@ import 'package:get/get.dart';
 
 import 'controllers/home_controller.dart';
 
-class HomeScreen extends GetView<HomeController> {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeUserScreen extends GetView<HomeUserController> {
+  const HomeUserScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('HomeScreen'),
+        title: const Text('HomeUserScreen'),
         centerTitle: true,
       ),
       body: const Center(
         child: Text(
-          'HomeScreen is working',
+          'HomeUserScreen is working',
           style: TextStyle(fontSize: 20),
         ),
       ),

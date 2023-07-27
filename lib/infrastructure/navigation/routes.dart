@@ -3,7 +3,8 @@ class Routes {
     return splash;
   }
 
-  static const home = '/home';
-  static const splash = '/splash';
   static const auth = '/auth';
+  static const homeUser = '/home-user';
+  static const splash = '/splash';
+  static const homeAdmin = '/home-admin';
 }

@@ -28,7 +28,7 @@ class ApiServices {
 
         if (request.data['data']['role'] == 'isUser') {
           Get.snackbar('Berhasil login', 'Semoga harimu menyenangkan ^-^');
-          Get.offAllNamed(Routes.home);
+          Get.offAllNamed(Routes.homeUser);
         } else if (request.data['data']['role'] == 'isAdmin') {
           Get.offAllNamed(Routes.splash);
         }
