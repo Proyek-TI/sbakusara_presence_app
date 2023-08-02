@@ -28,16 +28,16 @@ class ApiServices {
 
         if (request.data['data']['role'] == 'isUser') {
           Get.snackbar('Berhasil login', 'Semoga harimu menyenangkan ^-^');
-          Get.offAllNamed(Routes.userHome);
+          Get.offAllNamed(Routes.userDashboard);
         } else if (request.data['data']['role'] == 'isAdmin') {
-          Get.offAllNamed(Routes.splash);
+          Get.offAllNamed(Routes.adminDashboard);
         }
       } else {
         Get.snackbar('Error', 'Email/Kata sandi salah');
       }
     } catch (e) {
       if (e.toString().contains(401.toString())) {
-        Get.snackbar('Ingatan issue',
+        Get.snackbar('Gagal login!',
             'Username/Passwordmu salah, coba ingat-ingat lagi ya');
       } else {
         Get.snackbar('Error', 'An error occurred: $e');

@@ -6,7 +6,7 @@ class UserDashboardController extends GetxController {
   int selectedIndex = 0;
 
   List<Widget> pages = [
-    const UserHomeScreen(),
+    UserHomeScreen(),
     const UserHistoryScreen(),
     UserSettingsScreen(),
   ];

@@ -28,7 +28,7 @@ class Nav {
   static List<GetPage> routes = [
     GetPage(
       name: Routes.userHome,
-      page: () => const UserHomeScreen(),
+      page: () =>  UserHomeScreen(),
       binding: HomeControllerBinding(),
       transition: Transition.cupertino,
     ),
