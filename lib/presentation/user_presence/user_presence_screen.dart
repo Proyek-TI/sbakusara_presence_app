@@ -158,7 +158,7 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () async {
-                    if (controller.selectedImages.length == 3) {
+                    if (controller.selectedImages.length == 2) {
                       await controller.createPresence();
                     } else {
                       null;

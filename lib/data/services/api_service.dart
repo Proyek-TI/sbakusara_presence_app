@@ -75,7 +75,7 @@ class ApiServices {
         ),
       );
 
-      if (request.data['status'] == 'success') {
+      if (request.statusCode == 201) {
         Get.snackbar('Berhasil melakukan presensi!', 'Have a nice day ^-^');
         Get.back();
       }

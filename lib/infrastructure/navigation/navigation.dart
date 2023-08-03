@@ -29,7 +29,7 @@ class Nav {
     GetPage(
       name: Routes.userHome,
       page: () => UserHomeScreen(),
-      binding: HomeControllerBinding(),
+      binding: UserHomeControllerBinding(),
       transition: Transition.cupertino,
     ),
     GetPage(
@@ -52,8 +52,8 @@ class Nav {
     ),
     GetPage(
       name: Routes.userSettings,
-      page: () => UserSettingsScreen(),
-      binding: UserSettingsControllerBinding(),
+      page: () => SettingsScreen(),
+      binding: SettingsControllerBinding(),
       transition: Transition.cupertino,
     ),
     GetPage(
@@ -70,9 +70,9 @@ class Nav {
     ),
     GetPage(
       name: Routes.userPresence,
-      page: () =>  UserPresenceScreen(),
+      page: () => UserPresenceScreen(),
       binding: UserPresenceControllerBinding(),
-         transition: Transition.cupertino,
+      transition: Transition.cupertino,
     ),
   ];
 }

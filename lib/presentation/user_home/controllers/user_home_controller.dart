@@ -4,8 +4,9 @@ import 'package:sbakusara_presence_app/data/services/api_service.dart';
 
 class UserHomeController extends GetxController {
   @override
-  void onReady() async {
-    super.onReady();
+  void onInit() async {
+    super.onInit();
+
     await getHomeWidget();
   }
 
@@ -19,3 +20,4 @@ class UserHomeController extends GetxController {
     update();
   }
 }
+  

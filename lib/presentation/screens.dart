@@ -5,4 +5,4 @@ export 'package:sbakusara_presence_app/presentation/user_dashboard/user_dashboar
 export 'package:sbakusara_presence_app/presentation/user_history/user_history_screen.dart';
 export 'package:sbakusara_presence_app/presentation/user_home/user_home_screen.dart';
 export 'package:sbakusara_presence_app/presentation/user_presence/user_presence_screen.dart';
-export 'package:sbakusara_presence_app/presentation/user_settings/user_settings_screen.dart';
+export 'package:sbakusara_presence_app/presentation/settings/settings_screen.dart';
