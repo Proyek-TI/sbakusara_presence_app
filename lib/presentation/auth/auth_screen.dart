@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:iconify_flutter/icons/mdi.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_color_styles.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_text_styles.dart';
-import 'package:sbakusara_presence_app/infrastructure/navigation/routes.dart';
 
 import 'controllers/auth_controller.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
@@ -99,9 +98,8 @@ class AuthScreen extends GetView<AuthController> {
                         onPressed: () async {
                           if (controller.loginFormKey.currentState!
                               .validate()) {
-                            // await controller.userLogin(
-                            //     controller.unameC.text, controller.passC.text);
-                            Get.offAllNamed(Routes.userDashboard);
+                            await controller.userLogin(
+                                controller.unameC.text, controller.passC.text);
                           }
                         },
                         style: ElevatedButton.styleFrom(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sbakusara_presence_app/data/services/api_services.dart';
+import 'package:sbakusara_presence_app/data/services/api_service.dart';
 
 class AuthController extends GetxController {
   @override

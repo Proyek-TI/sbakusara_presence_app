@@ -41,7 +41,7 @@ class UserDashboardScreen extends GetView<UserDashboardController> {
               iconSize: 24,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               duration: const Duration(milliseconds: 300),
-              tabBackgroundColor: AppColorStyle.primary400,
+              tabBackgroundColor: AppColorStyle.primary500,
               color: AppColorStyle.textColorgrey,
               tabs: const [
                 GButton(
