@@ -8,7 +8,7 @@ class UserDashboardController extends GetxController {
   List<Widget> pages = [
     UserHomeScreen(),
     const UserHistoryScreen(),
-    UserSettingsScreen(),
+    SettingsScreen(),
   ];
 
   void currentIndex(int index) {
