@@ -23,6 +23,7 @@ dependencies:
   permission_handler: ^10.4.3
   app_settings: ^5.0.0
   map_launcher: ^2.5.0+1
+  geocoding: ^2.1.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

@@ -142,6 +142,7 @@ class UserHomeScreen extends GetView<UserHomeController> {
                   height: 36,
                 ),
 
+                // open map
                 GetBuilder<UserHomeController>(
                   builder: (controller) {
                     return controller.homeWidget.checkInLast == 'belum absen'
@@ -159,6 +160,19 @@ class UserHomeScreen extends GetView<UserHomeController> {
                               ),
                             ),
                           );
+                  },
+                ),
+
+                const SizedBox(
+                  height: 36,
+                ),
+
+                // show location info
+                GetBuilder<UserHomeController>(
+                  builder: (controller) {
+                    return controller.homeWidget.checkInLast == 'belum absen'
+                        ? const SizedBox.shrink()
+                        : Text(controller.title);
                   },
                 ),
 

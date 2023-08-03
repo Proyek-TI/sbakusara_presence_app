@@ -158,7 +158,7 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () async {
-                    if (controller.selectedImages.length == 2) {
+                    if (controller.selectedImages.length <= 2) {
                       await controller.createPresence();
                     } else {
                       null;
@@ -186,7 +186,7 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
             GetBuilder<UserPresenceController>(
               builder: (controller) {
                 return controller.selectedImages.length > 1 &&
-                        controller.selectedImages.length < 3
+                        controller.selectedImages.length < 2
                     ? Text(
                         'Tambah foto lagi untuk bisa melakukan presensi',
                         style: AppTextStyle.helperinfoStyle.copyWith(
