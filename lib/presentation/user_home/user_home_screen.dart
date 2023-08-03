@@ -144,24 +144,21 @@ class UserHomeScreen extends GetView<UserHomeController> {
 
                 GetBuilder<UserHomeController>(
                   builder: (controller) {
-                    return
-                        // controller.homeWidget.checkInLast == 'belum absen'
-                        //     ?
-                        // const SizedBox.shrink()
-                        // :
-                        CircleAvatar(
-                      radius: 16,
-                      backgroundColor: AppColorStyle.primary100,
-                      child: IconButton(
-                        onPressed: () async {
-                          await controller.openMap();
-                        },
-                        icon: const Icon(
-                          Icons.location_on_sharp,
-                          size: 16,
-                        ),
-                      ),
-                    );
+                    return controller.homeWidget.checkInLast == 'belum absen'
+                        ? const SizedBox.shrink()
+                        : CircleAvatar(
+                            radius: 16,
+                            backgroundColor: AppColorStyle.primary100,
+                            child: IconButton(
+                              onPressed: () async {
+                                await controller.openMap();
+                              },
+                              icon: const Icon(
+                                Icons.location_on_sharp,
+                                size: 16,
+                              ),
+                            ),
+                          );
                   },
                 ),
 
