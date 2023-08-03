@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_color_styles.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_text_styles.dart';
+import 'package:sbakusara_presence_app/infrastructure/navigation/routes.dart';
 
 import 'controllers/user_home_controller.dart';
 
@@ -70,7 +71,9 @@ class UserHomeScreen extends GetView<UserHomeController> {
                   width: Get.width,
                   height: 40,
                   child: ElevatedButton(
-                    onPressed: () async {},
+                    onPressed: () {
+                      Get.toNamed(Routes.userPresence);
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColorStyle.primary500,
                       shape: RoundedRectangleBorder(

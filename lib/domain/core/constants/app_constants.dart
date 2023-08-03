@@ -7,9 +7,18 @@ class AppConstant {
 
   // formatter
   /// date formatter
-  static String formatDateddMMMyyyy(String dateStr) {
-    DateTime date = DateFormat("dd-MM-yyyy").parse(dateStr);
-    String formattedDate = DateFormat("yyyy-MMM-dd").format(date);
-    return formattedDate;
+  static String getFormattedDate() {
+    var dateFormat = DateFormat('yyyy-MM-dd');
+    return dateFormat.format(DateTime.now());
+  }
+
+  /// date formatter
+  static String getFormattedTime() {
+    var dateFormat = DateFormat('HH:mm:ss');
+    return dateFormat.format(DateTime.now());
   }
 }
+
+
+
+
