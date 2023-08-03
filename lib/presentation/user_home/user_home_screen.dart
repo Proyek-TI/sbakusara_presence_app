@@ -20,7 +20,7 @@ class UserHomeScreen extends GetView<UserHomeController> {
       body: SafeArea(
         bottom: false,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 0),
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -56,35 +56,119 @@ class UserHomeScreen extends GetView<UserHomeController> {
                   height: Get.height * 0.06,
                 ),
 
-                Text(
-                  'Semangat pagi,kamu belum melakukan presensi pada hari ini',
-                  style: AppTextStyle.subtitleTextStyle
-                      .copyWith(fontWeight: FontWeight.w500),
-                  textAlign: TextAlign.center,
+                GetBuilder<UserHomeController>(
+                  builder: (controller) => Text(
+                    controller.homeWidget.checkInLast == 'belum absen' &&
+                            controller.homeWidget.checkOutLast == 'belum absen'
+                        ? 'Semangat pagi,kamu belum melakukan presensi pada hari ini'
+                        : 'Kamu sudah melakukan absen hari ini',
+                    style: AppTextStyle.subtitleTextStyle
+                        .copyWith(fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 24,
+                ),
+
+                GetBuilder<UserHomeController>(
+                  builder: (controller) {
+                    return controller.homeWidget.checkInLast == 'belum absen' &&
+                            controller.homeWidget.checkOutLast == 'belum absen'
+                        ? const SizedBox.shrink()
+                        : Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: SizedBox(
+                                  child: Center(
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'IN',
+                                          style: AppTextStyle.helperinfoStyle,
+                                        ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
+                                        Text(
+                                          controller.homeWidget.checkInLast
+                                              .toString(),
+                                          style: AppTextStyle
+                                              .helperbodyHeadlineStyle
+                                              .copyWith(
+                                            color: AppColorStyle.primary500,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: SizedBox(
+                                  child: Center(
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'OUT',
+                                          style: AppTextStyle.helperinfoStyle,
+                                        ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
+                                        Text(
+                                          controller.homeWidget.checkOutLast
+                                              .toString(),
+                                          style: AppTextStyle
+                                              .helperbodyHeadlineStyle
+                                              .copyWith(
+                                            color: AppColorStyle.primary500,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                  },
                 ),
 
                 const SizedBox(
                   height: 36,
                 ),
 
-                SizedBox(
-                  width: Get.width,
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.toNamed(Routes.userPresence);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColorStyle.primary500,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100),
+                GetBuilder<UserHomeController>(
+                  builder: (controller) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      width: Get.width,
+                      height: 40,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.toNamed(Routes.userPresence);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColorStyle.primary500,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                        ),
+                        child: Text(
+                          controller.homeWidget.checkInLast == 'belum absen' &&
+                                  controller.homeWidget.checkOutLast ==
+                                      'belum absen'
+                              ? 'Tap untuk presensi'
+                              : 'Tap untuk Check Out',
+                          style: AppTextStyle.labelTextStyle,
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      'Tap untuk presensi',
-                      style: AppTextStyle.labelTextStyle,
-                    ),
-                  ),
+                    );
+                  },
                 ),
               ],
             ),

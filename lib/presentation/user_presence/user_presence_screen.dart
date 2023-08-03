@@ -50,10 +50,15 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
             const SizedBox(
               height: 29,
             ),
-            Text(
-              'Ambil foto terbaikmu hari ini, semoga harimu menyenangkan',
-              style: AppTextStyle.dateTextStyle,
-              textAlign: TextAlign.center,
+            GetBuilder<UserPresenceController>(
+              builder: (controller) => Text(
+                controller.homeWidget.checkInLast == 'belum absen' &&
+                        controller.homeWidget.checkOutLast == 'belum absen'
+                    ? 'Ambil foto terbaikmu hari ini, semoga harimu menyenangkan'
+                    : 'Terima kasih atas kerja kerasmu hari ini, selamat beristirahat',
+                style: AppTextStyle.dateTextStyle,
+                textAlign: TextAlign.center,
+              ),
             ),
             const SizedBox(
               height: 24,
@@ -91,7 +96,11 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
               builder: (controller) {
                 return controller.selectedImages.isEmpty
                     ? Text(
-                        'Belum ada foto terpilih,\nAyo ambil foto-foto terbaikmu hari ini',
+                        controller.homeWidget.checkInLast == 'belum absen' &&
+                                controller.homeWidget.checkOutLast ==
+                                    'belum absen'
+                            ? 'Belum ada foto terpilih,\nAyo ambil foto-foto terbaikmu hari ini'
+                            : 'Belum ada foto terpilih,\nAyo ambil foto-foto kegiatanmu hari ini',
                         style: AppTextStyle.dateTextStyle
                             .copyWith(color: AppColorStyle.textColorgrey),
                         textAlign: TextAlign.center,
@@ -162,7 +171,10 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
                     ),
                   ),
                   child: Text(
-                    'Tap untuk presensi',
+                    controller.homeWidget.checkInLast == 'belum absen' &&
+                            controller.homeWidget.checkOutLast == 'belum absen'
+                        ? 'Tap untuk presensi'
+                        : 'Tap untuk Check Out',
                     style: AppTextStyle.labelTextStyle,
                   ),
                 ),

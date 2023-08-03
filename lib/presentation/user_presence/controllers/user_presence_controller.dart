@@ -2,6 +2,7 @@
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sbakusara_presence_app/data/models/home_model.dart';
 import 'package:sbakusara_presence_app/data/services/api_service.dart';
 import 'package:sbakusara_presence_app/data/services/location_service.dart';
 
@@ -10,7 +11,10 @@ class UserPresenceController extends GetxController {
   void onInit() async {
     super.onInit();
     await getUserLocation();
+    await getHomeWidget();
   }
+
+  HomeModel homeWidget = HomeModel();
 
   final apiService = ApiServices();
   final locationService = LocationService();
@@ -19,7 +23,6 @@ class UserPresenceController extends GetxController {
   double? longitude;
 
   List<XFile> selectedImages = [];
-  // List<String> selectedImages = [];
 
   /// pick multiple images from gallery
   void pickImages() async {
@@ -60,5 +63,12 @@ class UserPresenceController extends GetxController {
   Future<void> createPresence() async {
     await apiService.createPresence(
         latitude.toString(), longitude.toString(), selectedImages);
+  }
+
+  /// get home check in n check out info
+  Future<void> getHomeWidget() async {
+    final response = await apiService.getHomeWidget();
+    homeWidget = response;
+    update();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide FormData;
+import 'package:sbakusara_presence_app/data/models/home_model.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_constants.dart';
 import 'package:sbakusara_presence_app/infrastructure/navigation/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -85,6 +86,27 @@ class ApiServices {
       } else {
         Get.snackbar('Error', 'An error occurred: $e');
       }
+    }
+  }
+
+  /// get checkin n checkout info
+  Future<HomeModel> getHomeWidget() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    try {
+      final response = await _dio.get(
+        '/presents/widget',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      final homeWidget = HomeModel.fromJson(response.data['data']);
+      return homeWidget;
+    } catch (e) {
+      throw e.toString();
     }
   }
 }
