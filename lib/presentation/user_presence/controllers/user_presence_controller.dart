@@ -45,8 +45,7 @@ class UserPresenceController extends GetxController {
   /// pick image from camera
   Future<void> selectImage() async {
     final ImagePicker imagePicker = ImagePicker();
-    final pickedImage =
-        await imagePicker.pickImage(source: ImageSource.gallery);
+    final pickedImage = await imagePicker.pickImage(source: ImageSource.camera);
     if (pickedImage != null) {
       final imageFile = File(
         pickedImage.path,
