@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:sbakusara_presence_app/data/models/home_model.dart';
+import 'package:sbakusara_presence_app/data/models/presence_history_model.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_constants.dart';
 import 'package:sbakusara_presence_app/infrastructure/navigation/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -123,6 +124,31 @@ class ApiServices {
 
       final homeWidget = HomeModel.fromJson(response.data['data']);
       return homeWidget;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  /// get checkin n checkout info
+  Future<List<PresenceModel>> getPresenceHistory(String period) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    try {
+      final response = await _dio.get(
+        '/presents/user',
+        queryParameters: {'period': period},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      List<dynamic> data = response.data['data'];
+      List<PresenceModel> presence =
+          data.map((item) => PresenceModel.fromJson(item)).toList();
+
+      return presence;
     } catch (e) {
       throw e.toString();
     }
