@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sbakusara_presence_app/data/models/home_model.dart';
@@ -14,6 +16,13 @@ class UserPresenceController extends GetxController {
     await getHomeWidget();
   }
 
+  @override
+  void onClose() async {
+    super.onClose();
+    await getUserLocation();
+    await getHomeWidget();
+  }
+
   HomeModel homeWidget = HomeModel();
 
   final apiService = ApiServices();
@@ -23,13 +32,27 @@ class UserPresenceController extends GetxController {
   double? longitude;
 
   List<XFile> selectedImages = [];
+  List<File> willUploadedImages = [];
 
   /// pick multiple images from gallery
-  void pickImages() async {
+  Future<void> pickImages() async {
     final ImagePicker picker = ImagePicker();
     List<XFile>? pickedImages = await picker.pickMultiImage();
     if (pickedImages != null && pickedImages.isNotEmpty) {
       selectedImages.addAll(pickedImages);
+      update();
+    }
+  }
+
+  /// pick image from camera
+  Future<void> selectImage() async {
+    final ImagePicker imagePicker = ImagePicker();
+    final pickedImage = await imagePicker.pickImage(source: ImageSource.camera);
+    if (pickedImage != null) {
+      final imageFile = File(
+        pickedImage.path,
+      );
+      willUploadedImages.add(imageFile);
       update();
     }
   }
@@ -62,7 +85,9 @@ class UserPresenceController extends GetxController {
   /// create presence
   Future<void> createPresence() async {
     await apiService.createPresence(
-        latitude.toString(), longitude.toString(), selectedImages);
+        latitude.toString(), longitude.toString(), willUploadedImages);
+    update();
+    getHomeWidget();
   }
 
   /// get home check in n check out info

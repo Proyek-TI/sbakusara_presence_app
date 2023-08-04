@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:get/get.dart' hide FormData;
+import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:sbakusara_presence_app/data/models/home_model.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_constants.dart';
 import 'package:sbakusara_presence_app/infrastructure/navigation/routes.dart';
@@ -56,12 +56,16 @@ class ApiServices {
     final token = prefs.getString('token');
 
     try {
+      String fileName = url[0].path.split('/').last;
       final formData = FormData.fromMap({
         "date": AppConstant.getFormattedDate(),
         "time": AppConstant.getFormattedTime(),
         "latitude": latitude,
         "longitude": longitude,
-        "url": url,
+        "url": [
+          await MultipartFile.fromFile(url[0].path, filename: fileName),
+          await MultipartFile.fromFile(url[1].path, filename: fileName),
+        ],
       });
 
       final request = await _dio.post(

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -69,7 +67,8 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
                   if (controller.selectedImages.length >= 3) {
                     null;
                   } else {
-                    controller.pickImages();
+                    // controller.pickImages();
+                    controller.selectImage();
                   }
                 },
                 style: ButtonStyle(
@@ -94,7 +93,7 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
             ),
             GetBuilder<UserPresenceController>(
               builder: (controller) {
-                return controller.selectedImages.isEmpty
+                return controller.willUploadedImages.isEmpty
                     ? Text(
                         controller.homeWidget.checkInLast == 'belum absen' &&
                                 controller.homeWidget.checkOutLast ==
@@ -105,12 +104,14 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
                             .copyWith(color: AppColorStyle.textColorgrey),
                         textAlign: TextAlign.center,
                       )
-                    : SizedBox(
+                    :
+                    // pick image from camera
+                    SizedBox(
                         height: 80,
                         child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: controller.selectedImages.length,
+                          itemCount: controller.willUploadedImages.length,
                           itemBuilder: (context, index) {
                             return Container(
                               margin: const EdgeInsets.only(right: 12),
@@ -119,9 +120,7 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
                                 child: Stack(
                                   children: [
                                     Image.file(
-                                      File(
-                                        controller.selectedImages[index].path,
-                                      ),
+                                      controller.willUploadedImages[index],
                                       width: 80,
                                       height: 80,
                                       fit: BoxFit.cover,
@@ -147,6 +146,50 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
                           },
                         ),
                       );
+
+                // pick multiple images from gallery
+                // SizedBox(
+                //     height: 80,
+                //     child: ListView.builder(
+                //       shrinkWrap: true,
+                //       scrollDirection: Axis.horizontal,
+                //       itemCount: controller.selectedImages.length,
+                //       itemBuilder: (context, index) {
+                //         return Container(
+                //           margin: const EdgeInsets.only(right: 12),
+                //           child: ClipRRect(
+                //             borderRadius: BorderRadius.circular(16),
+                //             child: Stack(
+                //               children: [
+                //                 Image.file(
+                //                   File(
+                //                     controller.selectedImages[index].path,
+                //                   ),
+                //                   width: 80,
+                //                   height: 80,
+                //                   fit: BoxFit.cover,
+                //                 ),
+                //                 Align(
+                //                   alignment: Alignment.topRight,
+                //                   child: IconButton(
+                //                     padding: const EdgeInsets.only(
+                //                         left: 50, bottom: 20),
+                //                     onPressed: () {
+                //                       controller.deleteImages(index);
+                //                     },
+                //                     icon: const Icon(
+                //                       Icons.delete_forever_sharp,
+                //                       color: AppColorStyle.dangerColor500,
+                //                     ),
+                //                   ),
+                //                 ),
+                //               ],
+                //             ),
+                //           ),
+                //         );
+                //       },
+                //     ),
+                //   );
               },
             ),
             const SizedBox(
