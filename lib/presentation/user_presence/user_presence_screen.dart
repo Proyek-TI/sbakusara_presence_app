@@ -64,11 +64,10 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
             GetBuilder<UserPresenceController>(
               builder: (controller) => OutlinedButton(
                 onPressed: () async {
-                  if (controller.selectedImages.length >= 3) {
-                    null;
-                  } else {
-                    // controller.pickImages();
+                  if (controller.willUploadedImages.length <= 1) {
                     await controller.selectImage();
+                  } else {
+                    null;
                   }
                 },
                 style: ButtonStyle(
@@ -146,50 +145,6 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
                           },
                         ),
                       );
-
-                // pick multiple images from gallery
-                // SizedBox(
-                //     height: 80,
-                //     child: ListView.builder(
-                //       shrinkWrap: true,
-                //       scrollDirection: Axis.horizontal,
-                //       itemCount: controller.selectedImages.length,
-                //       itemBuilder: (context, index) {
-                //         return Container(
-                //           margin: const EdgeInsets.only(right: 12),
-                //           child: ClipRRect(
-                //             borderRadius: BorderRadius.circular(16),
-                //             child: Stack(
-                //               children: [
-                //                 Image.file(
-                //                   File(
-                //                     controller.selectedImages[index].path,
-                //                   ),
-                //                   width: 80,
-                //                   height: 80,
-                //                   fit: BoxFit.cover,
-                //                 ),
-                //                 Align(
-                //                   alignment: Alignment.topRight,
-                //                   child: IconButton(
-                //                     padding: const EdgeInsets.only(
-                //                         left: 50, bottom: 20),
-                //                     onPressed: () {
-                //                       controller.deleteImages(index);
-                //                     },
-                //                     icon: const Icon(
-                //                       Icons.delete_forever_sharp,
-                //                       color: AppColorStyle.dangerColor500,
-                //                     ),
-                //                   ),
-                //                 ),
-                //               ],
-                //             ),
-                //           ),
-                //         );
-                //       },
-                //     ),
-                //   );
               },
             ),
             const SizedBox(
@@ -204,7 +159,8 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
                     if (controller.selectedImages.length <= 2) {
                       await controller.createPresence();
                     } else {
-                      null;
+                      Get.snackbar('Tidak bisa melakukan presensi',
+                          'Gambarnya cukup 2 saja ya!');
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -228,8 +184,8 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
             ),
             GetBuilder<UserPresenceController>(
               builder: (controller) {
-                return controller.selectedImages.length > 1 &&
-                        controller.selectedImages.length < 2
+                return controller.willUploadedImages.isNotEmpty &&
+                        controller.willUploadedImages.length < 2
                     ? Text(
                         'Tambah foto lagi untuk bisa melakukan presensi',
                         style: AppTextStyle.helperinfoStyle.copyWith(

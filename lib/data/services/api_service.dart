@@ -57,16 +57,18 @@ class ApiServices {
 
     try {
       String fileName = url[0].path.split('/').last;
-      final formData = FormData.fromMap({
-        "date": AppConstant.getFormattedDate(),
-        "time": AppConstant.getFormattedTime(),
-        "latitude": latitude,
-        "longitude": longitude,
-        "url": [
-          await MultipartFile.fromFile(url[0].path, filename: fileName),
-          await MultipartFile.fromFile(url[1].path, filename: fileName),
-        ],
-      });
+      final formData = FormData.fromMap(
+        {
+          "date": AppConstant.getFormattedDate(),
+          "time": AppConstant.getFormattedTime(),
+          "latitude": latitude,
+          "longitude": longitude,
+          "url": [
+            await MultipartFile.fromFile(url[0].path, filename: fileName),
+            await MultipartFile.fromFile(url[1].path, filename: fileName),
+          ],
+        },
+      );
 
       final request = await _dio.post(
         '/presents',
@@ -79,15 +81,26 @@ class ApiServices {
         ),
       );
 
-      if (request.statusCode == 201) {
-        Get.snackbar('Berhasil melakukan presensi!', 'Have a nice day ^-^');
-        Get.back();
+      if (request.statusCode == 200) {
+        Get.snackbar(
+          'Berhasil melakukan presensi!',
+          'Have a nice day ^-^',
+          duration: const Duration(seconds: 5),
+        );
+        Get.offAllNamed(
+          Routes.userHome,
+        );
+      } else {
+        Get.snackbar('Error', 'Sesuatu terjadi');
       }
     } catch (e) {
       if (e.toString().contains(400.toString())) {
         Get.snackbar(
             'Gagal Melakukan Presensi!', 'Kamu sudah melakukan presensi');
-        Get.back();
+        // Get.back();
+        Get.offAllNamed(
+          Routes.userDashboard,
+        );
       } else {
         Get.snackbar('Error', 'An error occurred: $e');
       }

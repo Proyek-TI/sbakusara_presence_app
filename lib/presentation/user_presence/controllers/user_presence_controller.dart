@@ -13,13 +13,11 @@ class UserPresenceController extends GetxController {
   void onInit() async {
     super.onInit();
     await getUserLocation();
-    await getHomeWidget();
   }
 
   @override
   void onClose() async {
     super.onClose();
-    await getUserLocation();
     await getHomeWidget();
   }
 
@@ -47,7 +45,8 @@ class UserPresenceController extends GetxController {
   /// pick image from camera
   Future<void> selectImage() async {
     final ImagePicker imagePicker = ImagePicker();
-    final pickedImage = await imagePicker.pickImage(source: ImageSource.camera);
+    final pickedImage =
+        await imagePicker.pickImage(source: ImageSource.gallery);
     if (pickedImage != null) {
       final imageFile = File(
         pickedImage.path,
@@ -88,7 +87,6 @@ class UserPresenceController extends GetxController {
     await apiService.createPresence(
         latitude.toString(), longitude.toString(), willUploadedImages);
     update();
-    getHomeWidget();
   }
 
   /// get home check in n check out info

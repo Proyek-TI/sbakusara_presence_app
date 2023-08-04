@@ -15,6 +15,13 @@ class UserHomeController extends GetxController {
     await getAddress();
   }
 
+  @override
+  void onReady() async {
+    super.onReady();
+    await getHomeWidget();
+    await getAddress();
+  }
+
   final apiServices = ApiServices();
   final addressService = AddressService();
   HomeModel homeWidget = HomeModel();
@@ -37,21 +44,6 @@ class UserHomeController extends GetxController {
       title: title,
     );
   }
-
-  /// get location name n other info
-  // Future<String> getAddressFromLatLng(double latitude, double longitude) async {
-  //   try {
-  //     List<Placemark> placemarks =
-  //         await placemarkFromCoordinates(-6.707629, 108.4767248);
-  //     if (placemarks != null && placemarks.isNotEmpty) {
-  //       Placemark place = placemarks[0];
-  //       return "${place.name}, ${place.locality}, ${place.administrativeArea}, ${place.country}";
-  //     }
-  //   } catch (e) {
-  //     throw e.toString();
-  //   }
-  //   return "Unknown Location";
-  // }
 
   /// get location name n other info
   Future<void> getAddress() async {
