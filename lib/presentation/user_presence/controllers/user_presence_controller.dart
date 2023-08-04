@@ -59,7 +59,8 @@ class UserPresenceController extends GetxController {
 
   /// delete selected images
   void deleteImages(int index) {
-    selectedImages.removeAt(index);
+    willUploadedImages.removeAt(index);
+
     update();
   }
 

@@ -87,6 +87,7 @@ class ApiServices {
       if (e.toString().contains(400.toString())) {
         Get.snackbar(
             'Gagal Melakukan Presensi!', 'Kamu sudah melakukan presensi');
+        Get.back();
       } else {
         Get.snackbar('Error', 'An error occurred: $e');
       }

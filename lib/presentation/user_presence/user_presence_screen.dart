@@ -63,12 +63,12 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
             ),
             GetBuilder<UserPresenceController>(
               builder: (controller) => OutlinedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (controller.selectedImages.length >= 3) {
                     null;
                   } else {
                     // controller.pickImages();
-                    controller.selectImage();
+                    await controller.selectImage();
                   }
                 },
                 style: ButtonStyle(
