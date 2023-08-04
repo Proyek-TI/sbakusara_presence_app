@@ -16,6 +16,7 @@ class SettingsScreen extends GetView<SettingsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColorStyle.bgColormain,
       body: SafeArea(
         bottom: false,
         child: Padding(
@@ -25,17 +26,6 @@ class SettingsScreen extends GetView<SettingsController> {
               const SizedBox(
                 height: 20,
               ),
-              // ListTile(
-              //   onTap: () {},
-              //   title: Text(
-              //     'Profil Saya',
-              //     style: AppTextStyle.tileTitleStyle,
-              //   ),
-              //   trailing: const Icon(
-              //     Icons.arrow_forward_ios_rounded,
-              //     size: 16,
-              //   ),
-              // ),
               ListTile(
                 onTap: () {
                   Get.to(

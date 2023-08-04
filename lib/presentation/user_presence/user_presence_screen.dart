@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -65,11 +63,11 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
             ),
             GetBuilder<UserPresenceController>(
               builder: (controller) => OutlinedButton(
-                onPressed: () {
-                  if (controller.selectedImages.length >= 3) {
-                    null;
+                onPressed: () async {
+                  if (controller.willUploadedImages.length <= 1) {
+                    await controller.selectImage();
                   } else {
-                    controller.pickImages();
+                    null;
                   }
                 },
                 style: ButtonStyle(
@@ -94,7 +92,7 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
             ),
             GetBuilder<UserPresenceController>(
               builder: (controller) {
-                return controller.selectedImages.isEmpty
+                return controller.willUploadedImages.isEmpty
                     ? Text(
                         controller.homeWidget.checkInLast == 'belum absen' &&
                                 controller.homeWidget.checkOutLast ==
@@ -105,12 +103,14 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
                             .copyWith(color: AppColorStyle.textColorgrey),
                         textAlign: TextAlign.center,
                       )
-                    : SizedBox(
+                    :
+                    // pick image from camera
+                    SizedBox(
                         height: 80,
                         child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: controller.selectedImages.length,
+                          itemCount: controller.willUploadedImages.length,
                           itemBuilder: (context, index) {
                             return Container(
                               margin: const EdgeInsets.only(right: 12),
@@ -119,9 +119,7 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
                                 child: Stack(
                                   children: [
                                     Image.file(
-                                      File(
-                                        controller.selectedImages[index].path,
-                                      ),
+                                      controller.willUploadedImages[index],
                                       width: 80,
                                       height: 80,
                                       fit: BoxFit.cover,
@@ -158,10 +156,11 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () async {
-                    if (controller.selectedImages.length == 2) {
+                    if (controller.selectedImages.length <= 2) {
                       await controller.createPresence();
                     } else {
-                      null;
+                      Get.snackbar('Tidak bisa melakukan presensi',
+                          'Gambarnya cukup 2 saja ya!');
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -185,8 +184,8 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
             ),
             GetBuilder<UserPresenceController>(
               builder: (controller) {
-                return controller.selectedImages.length > 1 &&
-                        controller.selectedImages.length < 3
+                return controller.willUploadedImages.isNotEmpty &&
+                        controller.willUploadedImages.length < 2
                     ? Text(
                         'Tambah foto lagi untuk bisa melakukan presensi',
                         style: AppTextStyle.helperinfoStyle.copyWith(

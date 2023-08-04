@@ -142,6 +142,44 @@ class UserHomeScreen extends GetView<UserHomeController> {
                   height: 36,
                 ),
 
+                // open map
+                GetBuilder<UserHomeController>(
+                  builder: (controller) {
+                    return controller.homeWidget.checkInLast == 'belum absen'
+                        ? const SizedBox.shrink()
+                        : CircleAvatar(
+                            radius: 16,
+                            backgroundColor: AppColorStyle.primary100,
+                            child: IconButton(
+                              onPressed: () async {
+                                await controller.openMap();
+                              },
+                              icon: const Icon(
+                                Icons.location_on_sharp,
+                                size: 16,
+                              ),
+                            ),
+                          );
+                  },
+                ),
+
+                const SizedBox(
+                  height: 36,
+                ),
+
+                // show location info
+                GetBuilder<UserHomeController>(
+                  builder: (controller) {
+                    return controller.homeWidget.checkInLast == 'belum absen'
+                        ? const SizedBox.shrink()
+                        : Text(controller.title);
+                  },
+                ),
+
+                const SizedBox(
+                  height: 36,
+                ),
+
                 GetBuilder<UserHomeController>(
                   builder: (controller) {
                     return Container(

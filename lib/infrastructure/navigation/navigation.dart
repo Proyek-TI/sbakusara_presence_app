@@ -58,7 +58,7 @@ class Nav {
     ),
     GetPage(
       name: Routes.userHistory,
-      page: () => const UserHistoryScreen(),
+      page: () => UserHistoryScreen(),
       binding: UserHistoryControllerBinding(),
       transition: Transition.cupertino,
     ),
