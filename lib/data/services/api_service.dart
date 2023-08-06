@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile;
+import 'package:sbakusara_presence_app/data/models/employee_model.dart';
 import 'package:sbakusara_presence_app/data/models/home_model.dart';
 import 'package:sbakusara_presence_app/data/models/presence_history_model.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_constants.dart';
@@ -46,6 +47,8 @@ class ApiServices {
       }
     }
   }
+
+  // ======================== EMPLOYEE ======================== //
 
   /// user create presence
   Future<void> createPresence(
@@ -129,7 +132,7 @@ class ApiServices {
     }
   }
 
-  /// get checkin n checkout info
+  /// get presence history for employee
   Future<List<PresenceModel>> getPresenceHistory(String period) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
@@ -151,6 +154,139 @@ class ApiServices {
       return presence;
     } catch (e) {
       throw e.toString();
+    }
+  }
+
+  // ======================== ADMIN ======================== //
+
+  /// Get Employee List
+  Future<List<EmployeeModel>> getEmployeeList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    try {
+      final response = await _dio.get(
+        '/admin/users',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      List<dynamic> data = response.data['data'];
+      List<EmployeeModel> employee =
+          data.map((item) => EmployeeModel.fromJson(item)).toList();
+
+      return employee;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  /// add user
+  Future<void> addEmployee(
+      String name, String uname, String email, String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    Map data = {
+      'name': name,
+      'username': uname,
+      'email': email,
+      'password': password,
+    };
+
+    try {
+      final request = await _dio.post(
+        '/admin/users',
+        data: data,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      if (request.statusCode == 201) {
+        Get.snackbar('Success!', 'Berhasil menambahkan karyawan');
+        Get.offAllNamed(
+          Routes.adminDashboard,
+        );
+      }
+    } catch (e) {
+      if (e.toString().contains(401.toString())) {
+        Get.snackbar('Gagal!', 'Gagal menambahkan karyawan');
+      } else {
+        Get.snackbar('Error', 'An error occurred: $e');
+      }
+    }
+  }
+
+  /// edit user
+  Future<void> editEmployee(
+      int id, String name, String uname, String email, String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    Map data = {
+      'name': name,
+      'username': uname,
+      'email': email,
+      'password': password,
+    };
+
+    try {
+      final request = await _dio.put(
+        '/admin/users/$id',
+        data: data,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      if (request.statusCode == 200) {
+        Get.snackbar('Success!', 'Berhasil menyunting data karyawan');
+        Get.offAllNamed(
+          Routes.adminDashboard,
+        );
+      }
+    } catch (e) {
+      if (e.toString().contains(401.toString())) {
+        Get.snackbar('Gagal!', 'Gagal menyunting data karyawan');
+      } else {
+        Get.snackbar('Error', 'An error occurred: $e');
+      }
+    }
+  }
+
+  /// delete user
+  Future<void> deleteEmployee(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    try {
+      final request = await _dio.delete(
+        '/admin/users/$id',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      if (request.statusCode == 200) {
+        Get.snackbar(
+          'Success!',
+          'Berhasil menghapus karyawan',
+          duration: const Duration(seconds: 5),
+        );
+      }
+    } catch (e) {
+      if (e.toString().contains(401.toString())) {
+        Get.snackbar('Gagal!', 'Gagal menghapus karyawan');
+      } else {
+        Get.snackbar('Error', 'An error occurred: $e');
+      }
     }
   }
 }
