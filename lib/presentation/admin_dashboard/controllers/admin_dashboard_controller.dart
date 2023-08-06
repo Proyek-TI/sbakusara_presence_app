@@ -6,7 +6,7 @@ class AdminDashboardController extends GetxController {
   int selectedIndex = 0;
 
   List<Widget> pages = [
-    const AdminHomeScreen(),
+     AdminHomeScreen(),
     const Text('Page 2'),
     const Text('Page 3'),
   ];

@@ -76,7 +76,7 @@ class Nav {
     ),
     GetPage(
       name: Routes.adminHome,
-      page: () => const AdminHomeScreen(),
+      page: () =>  AdminHomeScreen(),
       binding: AdminHomeControllerBinding(),
     ),
   ];

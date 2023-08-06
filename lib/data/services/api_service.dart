@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile;
+import 'package:sbakusara_presence_app/data/models/employee_model.dart';
 import 'package:sbakusara_presence_app/data/models/home_model.dart';
 import 'package:sbakusara_presence_app/data/models/presence_history_model.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_constants.dart';
@@ -46,6 +47,8 @@ class ApiServices {
       }
     }
   }
+
+  // ======================== EMPLOYEE ======================== //
 
   /// user create presence
   Future<void> createPresence(
@@ -129,7 +132,7 @@ class ApiServices {
     }
   }
 
-  /// get checkin n checkout info
+  /// get presence history for employee
   Future<List<PresenceModel>> getPresenceHistory(String period) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
@@ -149,6 +152,32 @@ class ApiServices {
           data.map((item) => PresenceModel.fromJson(item)).toList();
 
       return presence;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  // ======================== ADMIN ======================== //
+
+  /// Get Employee List
+  Future<List<EmployeeModel>> getEmployeeList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    try {
+      final response = await _dio.get(
+        '/admin/users',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      List<dynamic> data = response.data['data'];
+      List<EmployeeModel> employee =
+          data.map((item) => EmployeeModel.fromJson(item)).toList();
+
+      return employee;
     } catch (e) {
       throw e.toString();
     }
