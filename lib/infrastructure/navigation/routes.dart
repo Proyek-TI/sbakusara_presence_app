@@ -9,6 +9,7 @@ class Routes {
   static const userDashboard = '/user-dashboard';
   static const userHistory = '/user-history';
   static const userHome = '/home';
-  static const userSettings = '/user-settings';
   static const userPresence = '/user-presence';
+  static const userSettings = '/user-settings';
+  static const adminHome = '/admin-home';
 }

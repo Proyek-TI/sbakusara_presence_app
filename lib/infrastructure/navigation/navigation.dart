@@ -74,5 +74,10 @@ class Nav {
       binding: UserPresenceControllerBinding(),
       transition: Transition.cupertino,
     ),
+    GetPage(
+      name: Routes.adminHome,
+      page: () => const AdminHomeScreen(),
+      binding: AdminHomeControllerBinding(),
+    ),
   ];
 }
