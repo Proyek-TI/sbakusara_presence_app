@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_color_styles.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_text_styles.dart';
+import 'package:sbakusara_presence_app/presentation/admin_home/add_employee_screen.dart';
 import 'package:sbakusara_presence_app/presentation/admin_home/employee_detail_screen.dart';
 
 import 'controllers/admin_home_controller.dart';
@@ -90,7 +91,12 @@ class AdminHomeScreen extends GetView<AdminHomeController> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.to(
+            () => AddEmployeeScreen(),
+            transition: Transition.cupertino,
+          );
+        },
         backgroundColor: AppColorStyle.primary500,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),

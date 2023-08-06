@@ -182,4 +182,42 @@ class ApiServices {
       throw e.toString();
     }
   }
+
+  /// add user
+  Future<void> addEmployee(
+      String name, String uname, String email, String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    Map data = {
+      'name': name,
+      'username': uname,
+      'email': email,
+      'password': password,
+    };
+
+    try {
+      final request = await _dio.post(
+        '/admin/users',
+        data: data,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      if (request.statusCode == 201) {
+        Get.snackbar('Success!', 'Berhasil menambahkan karyawan');
+        Get.offAllNamed(
+          Routes.adminDashboard,
+        );
+      }
+    } catch (e) {
+      if (e.toString().contains(401.toString())) {
+        Get.snackbar('Gagal!', 'Gagal menambahkan karyawan');
+      } else {
+        Get.snackbar('Error', 'An error occurred: $e');
+      }
+    }
+  }
 }
