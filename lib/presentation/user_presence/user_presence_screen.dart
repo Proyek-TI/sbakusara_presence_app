@@ -50,8 +50,8 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
             ),
             GetBuilder<UserPresenceController>(
               builder: (controller) => Text(
-                controller.homeWidget.checkInLast == 'belum absen' &&
-                        controller.homeWidget.checkOutLast == 'belum absen'
+                controller.homeWidget.checkIn?.time == 'belum absen' &&
+                        controller.homeWidget.checkOut?.time == 'belum absen'
                     ? 'Ambil foto terbaikmu hari ini, semoga harimu menyenangkan'
                     : 'Terima kasih atas kerja kerasmu hari ini, selamat beristirahat',
                 style: AppTextStyle.dateTextStyle,
@@ -94,8 +94,8 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
               builder: (controller) {
                 return controller.willUploadedImages.isEmpty
                     ? Text(
-                        controller.homeWidget.checkInLast == 'belum absen' &&
-                                controller.homeWidget.checkOutLast ==
+                        controller.homeWidget.checkIn?.time == 'belum absen' &&
+                                controller.homeWidget.checkOut?.time ==
                                     'belum absen'
                             ? 'Belum ada foto terpilih,\nAyo ambil foto-foto terbaikmu hari ini'
                             : 'Belum ada foto terpilih,\nAyo ambil foto-foto kegiatanmu hari ini',
@@ -170,8 +170,9 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
                     ),
                   ),
                   child: Text(
-                    controller.homeWidget.checkInLast == 'belum absen' &&
-                            controller.homeWidget.checkOutLast == 'belum absen'
+                    controller.homeWidget.checkIn?.time == 'belum absen' &&
+                            controller.homeWidget.checkOut?.time ==
+                                'belum absen'
                         ? 'Tap untuk presensi'
                         : 'Tap untuk Check Out',
                     style: AppTextStyle.labelTextStyle,

@@ -14,6 +14,7 @@ class PresenceModel {
   String? url;
   String? longitude;
   String? latitude;
+  String? location;
   String? distance;
   int? status;
   int? userId;
@@ -29,6 +30,7 @@ class PresenceModel {
     this.url,
     this.longitude,
     this.latitude,
+    this.location,
     this.distance,
     this.status,
     this.userId,
@@ -45,6 +47,7 @@ class PresenceModel {
     String? url,
     String? longitude,
     String? latitude,
+    String? location,
     String? distance,
     int? status,
     int? userId,
@@ -60,6 +63,7 @@ class PresenceModel {
         url: url ?? this.url,
         longitude: longitude ?? this.longitude,
         latitude: latitude ?? this.latitude,
+        location: location ?? this.location,
         distance: distance ?? this.distance,
         status: status ?? this.status,
         userId: userId ?? this.userId,
@@ -76,6 +80,7 @@ class PresenceModel {
         url: json["url"],
         longitude: json["longitude"],
         latitude: json["latitude"],
+        location: json["location"],
         distance: json["distance"],
         status: json["status"],
         userId: json["user_id"],
@@ -96,6 +101,7 @@ class PresenceModel {
         "url": url,
         "longitude": longitude,
         "latitude": latitude,
+        "location": location,
         "distance": distance,
         "status": status,
         "user_id": userId,

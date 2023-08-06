@@ -58,8 +58,9 @@ class UserHomeScreen extends GetView<UserHomeController> {
 
                 GetBuilder<UserHomeController>(
                   builder: (controller) => Text(
-                    controller.homeWidget.checkInLast == 'belum absen' &&
-                            controller.homeWidget.checkOutLast == 'belum absen'
+                    controller.homeWidget.checkIn?.time == 'belum absen' &&
+                            controller.homeWidget.checkOut?.time ==
+                                'belum absen'
                         ? 'Semangat pagi,kamu belum melakukan presensi pada hari ini'
                         : 'Kamu sudah melakukan absen hari ini',
                     style: AppTextStyle.subtitleTextStyle
@@ -74,8 +75,10 @@ class UserHomeScreen extends GetView<UserHomeController> {
 
                 GetBuilder<UserHomeController>(
                   builder: (controller) {
-                    return controller.homeWidget.checkInLast == 'belum absen' &&
-                            controller.homeWidget.checkOutLast == 'belum absen'
+                    return controller.homeWidget.checkIn?.time ==
+                                'belum absen' &&
+                            controller.homeWidget.checkOut?.time ==
+                                'belum absen'
                         ? const SizedBox.shrink()
                         : Row(
                             children: [
@@ -93,8 +96,9 @@ class UserHomeScreen extends GetView<UserHomeController> {
                                           height: 8,
                                         ),
                                         Text(
-                                          controller.homeWidget.checkInLast
-                                              .toString(),
+                                          controller.homeWidget.checkIn?.time
+                                                  .toString() ??
+                                              'Belum absen',
                                           style: AppTextStyle
                                               .helperbodyHeadlineStyle
                                               .copyWith(
@@ -120,8 +124,9 @@ class UserHomeScreen extends GetView<UserHomeController> {
                                           height: 8,
                                         ),
                                         Text(
-                                          controller.homeWidget.checkOutLast
-                                              .toString(),
+                                          controller.homeWidget.checkOut?.time
+                                                  .toString() ??
+                                              'Belum absen',
                                           style: AppTextStyle
                                               .helperbodyHeadlineStyle
                                               .copyWith(
@@ -145,7 +150,7 @@ class UserHomeScreen extends GetView<UserHomeController> {
                 // open map
                 GetBuilder<UserHomeController>(
                   builder: (controller) {
-                    return controller.homeWidget.checkInLast == 'belum absen'
+                    return controller.homeWidget.checkIn?.time == 'belum absen'
                         ? const SizedBox.shrink()
                         : CircleAvatar(
                             radius: 16,
@@ -170,7 +175,7 @@ class UserHomeScreen extends GetView<UserHomeController> {
                 // show location info
                 GetBuilder<UserHomeController>(
                   builder: (controller) {
-                    return controller.homeWidget.checkInLast == 'belum absen'
+                    return controller.homeWidget.checkIn?.time == 'belum absen'
                         ? const SizedBox.shrink()
                         : Text(controller.title);
                   },
@@ -197,8 +202,9 @@ class UserHomeScreen extends GetView<UserHomeController> {
                           ),
                         ),
                         child: Text(
-                          controller.homeWidget.checkInLast == 'belum absen' &&
-                                  controller.homeWidget.checkOutLast ==
+                          controller.homeWidget.checkIn?.time ==
+                                      'belum absen' &&
+                                  controller.homeWidget.checkOut?.time ==
                                       'belum absen'
                               ? 'Tap untuk presensi'
                               : 'Tap untuk Check Out',

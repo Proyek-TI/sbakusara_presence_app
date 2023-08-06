@@ -5,30 +5,74 @@ HomeModel homeModelFromJson(String str) => HomeModel.fromJson(json.decode(str));
 String homeModelToJson(HomeModel data) => json.encode(data.toJson());
 
 class HomeModel {
-  String? checkInLast;
-  String? checkOutLast;
+  Check? checkIn;
+  Check? checkOut;
 
   HomeModel({
-    this.checkInLast,
-    this.checkOutLast,
+    this.checkIn,
+    this.checkOut,
   });
 
   HomeModel copyWith({
-    String? checkInLast,
-    String? checkOutLast,
+    Check? checkIn,
+    Check? checkOut,
   }) =>
       HomeModel(
-        checkInLast: checkInLast ?? this.checkInLast,
-        checkOutLast: checkOutLast ?? this.checkOutLast,
+        checkIn: checkIn ?? this.checkIn,
+        checkOut: checkOut ?? this.checkOut,
       );
 
   factory HomeModel.fromJson(Map<String, dynamic> json) => HomeModel(
-        checkInLast: json["CheckInLast"],
-        checkOutLast: json["CheckOutLast"],
+        checkIn:
+            json["check_in"] == null ? null : Check.fromJson(json["check_in"]),
+        checkOut: json["check_out"] == null
+            ? null
+            : Check.fromJson(json["check_out"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "CheckInLast": checkInLast,
-        "CheckOutLast": checkOutLast,
+        "check_in": checkIn?.toJson(),
+        "check_out": checkOut?.toJson(),
+      };
+}
+
+class Check {
+  String? latitude;
+  String? longitude;
+  String? time;
+  String? location;
+
+  Check({
+    this.latitude,
+    this.longitude,
+    this.time,
+    this.location,
+  });
+
+  Check copyWith({
+    String? latitude,
+    String? longitude,
+    String? time,
+    String? location,
+  }) =>
+      Check(
+        latitude: latitude ?? this.latitude,
+        longitude: longitude ?? this.longitude,
+        time: time ?? this.time,
+        location: location ?? this.location,
+      );
+
+  factory Check.fromJson(Map<String, dynamic> json) => Check(
+        latitude: json["latitude"],
+        longitude: json["longitude"],
+        time: json["time"],
+        location: json["location"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "latitude": latitude,
+        "longitude": longitude,
+        "time": time,
+        "location": location,
       };
 }

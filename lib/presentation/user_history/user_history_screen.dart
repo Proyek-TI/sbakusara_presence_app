@@ -36,10 +36,10 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
                   value: '',
                   child: Text('All'),
                 ),
-                DropdownMenuItem(
-                  value: 'weekly',
-                  child: Text('Weekly'),
-                ),
+                // DropdownMenuItem(
+                //   value: 'daily',
+                //   child: Text('daily'),
+                // ),
                 DropdownMenuItem(
                   value: 'monthly',
                   child: Text('monthly'),
@@ -126,7 +126,7 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
                                 Expanded(
                                   flex: 2,
                                   child: Text(
-                                    presence.time!,
+                                    presence.location ?? 'Undefined',
                                     style: AppTextStyle.infoinOutStyle,
                                   ),
                                 ),
@@ -143,7 +143,13 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
                             radius: 16,
                             backgroundColor: AppColorStyle.primary100,
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                controller.openMap(
+                                    latitude: double.parse(presence.latitude!),
+                                    longitude:
+                                        double.parse(presence.longitude!),
+                                    location: presence.location ?? 'Undefined');
+                              },
                               icon: const Icon(
                                 Icons.location_on_sharp,
                                 size: 16,
