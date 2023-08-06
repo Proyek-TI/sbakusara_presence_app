@@ -17,11 +17,17 @@ class AdminHomeController extends GetxController {
   /// add employee
   final GlobalKey<FormState> addEmployeeFormKey = GlobalKey<FormState>();
 
-  // TextEditingController
+  // TextEditingController Add Employee
   final TextEditingController nameC = TextEditingController();
   final TextEditingController unameC = TextEditingController();
   final TextEditingController emailC = TextEditingController();
   final TextEditingController passC = TextEditingController();
+
+  // TextEditingController Edit Employee
+  final TextEditingController editNameC = TextEditingController();
+  final TextEditingController editUnameC = TextEditingController();
+  final TextEditingController editEmailC = TextEditingController();
+  final TextEditingController editPassC = TextEditingController();
 
   // Obscure Text
   bool passwordObscureText = true;
@@ -90,8 +96,21 @@ class AdminHomeController extends GetxController {
     update();
   }
 
+  /// delete employee list
   Future<void> deletemployee(int id) async {
     await apiService.deleteEmployee(id);
+    update();
+  }
+
+  /// edit employee list
+  Future<void> editEmployee(
+    int id,
+    String name,
+    String uname,
+    String email,
+    String password,
+  ) async {
+    await apiService.editEmployee(id, name, uname, email, password);
     update();
   }
 

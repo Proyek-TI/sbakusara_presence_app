@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_color_styles.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_text_styles.dart';
 import 'package:sbakusara_presence_app/presentation/admin_home/add_employee_screen.dart';
+import 'package:sbakusara_presence_app/presentation/admin_home/edit_employee_screen.dart';
 import 'package:sbakusara_presence_app/presentation/admin_home/employee_detail_screen.dart';
 
 import 'controllers/admin_home_controller.dart';
@@ -60,7 +61,12 @@ class AdminHomeScreen extends GetView<AdminHomeController> {
                     key: key ?? const Key(''),
                     leadingActions: [
                       SwipeAction(
-                        onTap: (handler) {},
+                        onTap: (handler) {
+                          Get.to(
+                            () => EditEmployeeScreen(employee: employee),
+                            transition: Transition.cupertino,
+                          );
+                        },
                         color: AppColorStyle.bgColormain,
                         content: Container(
                           margin: const EdgeInsets.only(bottom: 12),

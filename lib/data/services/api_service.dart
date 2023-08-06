@@ -221,6 +221,44 @@ class ApiServices {
     }
   }
 
+  /// edit user
+  Future<void> editEmployee(
+      int id, String name, String uname, String email, String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    Map data = {
+      'name': name,
+      'username': uname,
+      'email': email,
+      'password': password,
+    };
+
+    try {
+      final request = await _dio.put(
+        '/admin/users/$id',
+        data: data,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      if (request.statusCode == 200) {
+        Get.snackbar('Success!', 'Berhasil menyunting data karyawan');
+        Get.offAllNamed(
+          Routes.adminDashboard,
+        );
+      }
+    } catch (e) {
+      if (e.toString().contains(401.toString())) {
+        Get.snackbar('Gagal!', 'Gagal menyunting data karyawan');
+      } else {
+        Get.snackbar('Error', 'An error occurred: $e');
+      }
+    }
+  }
+
   /// delete user
   Future<void> deleteEmployee(int id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
