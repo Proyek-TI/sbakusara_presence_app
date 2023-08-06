@@ -220,4 +220,35 @@ class ApiServices {
       }
     }
   }
+
+  /// delete user
+  Future<void> deleteEmployee(int id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    try {
+      final request = await _dio.delete(
+        '/admin/users/$id',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      if (request.statusCode == 200) {
+        Get.snackbar(
+          'Success!',
+          'Berhasil menghapus karyawan',
+          duration: const Duration(seconds: 5),
+        );
+      }
+    } catch (e) {
+      if (e.toString().contains(401.toString())) {
+        Get.snackbar('Gagal!', 'Gagal menghapus karyawan');
+      } else {
+        Get.snackbar('Error', 'An error occurred: $e');
+      }
+    }
+  }
 }

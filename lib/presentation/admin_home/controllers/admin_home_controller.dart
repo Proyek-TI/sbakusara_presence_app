@@ -90,6 +90,11 @@ class AdminHomeController extends GetxController {
     update();
   }
 
+  Future<void> deletemployee(int id) async {
+    await apiService.deleteEmployee(id);
+    update();
+  }
+
   /// get employee list
   Future<void> getEmployeeList() async {
     final response = await apiService.getEmployeeList();
