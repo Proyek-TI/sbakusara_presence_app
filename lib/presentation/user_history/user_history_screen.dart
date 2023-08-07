@@ -39,13 +39,13 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
                   value: '',
                   child: Text('All'),
                 ),
-                // DropdownMenuItem(
-                //   value: 'daily',
-                //   child: Text('daily'),
-                // ),
+                DropdownMenuItem(
+                  value: 'weekly',
+                  child: Text('Weekly'),
+                ),
                 DropdownMenuItem(
                   value: 'monthly',
-                  child: Text('monthly'),
+                  child: Text('Monthly'),
                 ),
               ],
               onChanged: (value) {
@@ -70,10 +70,12 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
                 final presence = controller.presenceHistory[index];
                 return InkWell(
                   onTap: () {
-                    Get.to(() => UserDetailPresence(
-                          index: index,
-                          presence: presence,
-                        ));
+                    Get.to(
+                      () => UserDetailPresence(
+                        index: index,
+                        presence: presence,
+                      ),
+                    );
                   },
                   child: Container(
                     margin: const EdgeInsets.only(bottom: 16),
