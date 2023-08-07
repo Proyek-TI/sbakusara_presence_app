@@ -7,7 +7,7 @@ class AdminDashboardController extends GetxController {
 
   List<Widget> pages = [
     AdminHomeScreen(),
-    const Text('Page 2'),
+    AdminHistoryScreen(),
     SettingsScreen(),
   ];
 

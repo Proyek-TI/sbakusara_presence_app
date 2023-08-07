@@ -4,6 +4,8 @@ class Routes {
   }
 
   static const adminDashboard = '/admin-dashboard';
+  static const adminHome = '/admin-home';
+  static const adminHistory = '/admin-history';
   static const auth = '/auth';
   static const splash = '/splash';
   static const userDashboard = '/user-dashboard';
@@ -11,5 +13,4 @@ class Routes {
   static const userHome = '/home';
   static const userPresence = '/user-presence';
   static const userSettings = '/user-settings';
-  static const adminHome = '/admin-home';
 }

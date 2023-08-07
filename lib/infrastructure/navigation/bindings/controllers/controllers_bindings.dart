@@ -1,4 +1,5 @@
 export 'package:sbakusara_presence_app/infrastructure/navigation/bindings/controllers/admin_dashboard_controller_binding.dart'; 
+export 'package:sbakusara_presence_app/infrastructure/navigation/bindings/controllers/admin_history_controller_binding.dart'; 
 export 'package:sbakusara_presence_app/infrastructure/navigation/bindings/controllers/admin_home_controller_binding.dart'; 
 export 'package:sbakusara_presence_app/infrastructure/navigation/bindings/controllers/auth_controller_binding.dart'; 
 export 'package:sbakusara_presence_app/infrastructure/navigation/bindings/controllers/settings_controller_binding.dart'; 

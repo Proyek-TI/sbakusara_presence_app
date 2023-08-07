@@ -76,8 +76,15 @@ class Nav {
     ),
     GetPage(
       name: Routes.adminHome,
-      page: () =>  AdminHomeScreen(),
+      page: () => AdminHomeScreen(),
       binding: AdminHomeControllerBinding(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: Routes.adminHistory,
+      page: () => AdminHistoryScreen(),
+      binding: AdminHistoryControllerBinding(),
+      transition: Transition.cupertino,
     ),
   ];
 }
