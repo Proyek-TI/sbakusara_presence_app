@@ -1,9 +1,11 @@
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_color_styles.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_constants.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_text_styles.dart';
+import 'package:sbakusara_presence_app/presentation/admin_history/admin_detail_history_presence.dart';
 
 import 'controllers/admin_history_controller.dart';
 
@@ -61,8 +63,17 @@ class AdminHistoryScreen extends GetView<AdminHistoryController> {
               itemCount: controller.presenceHistory.length,
               itemBuilder: (context, index) {
                 final presence = controller.presenceHistory[index];
+
                 return InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(
+                      () => AdminDetailPresence(
+                        index: index,
+                        presence: presence,
+                      ),
+                      transition: Transition.cupertino,
+                    );
+                  },
                   child: Container(
                     margin: const EdgeInsets.only(bottom: 16),
                     padding: const EdgeInsets.only(
