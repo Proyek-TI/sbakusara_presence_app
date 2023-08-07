@@ -289,4 +289,29 @@ class ApiServices {
       }
     }
   }
+
+  /// get presence history for admin
+  Future<List<PresenceModel>> getPresenceHistoryAdmin(String period) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    try {
+      final response = await _dio.get(
+        '/admin/presents',
+        queryParameters: {'period': period},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      List<dynamic> data = response.data['data'];
+      List<PresenceModel> presence =
+          data.map((item) => PresenceModel.fromJson(item)).toList();
+
+      return presence;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
 }

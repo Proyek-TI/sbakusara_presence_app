@@ -31,7 +31,9 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
         actions: [
           GetBuilder<UserHistoryController>(
             builder: (controller) => DropdownButton(
-              padding: const EdgeInsets.only(right: 20),
+              padding: const EdgeInsets.only(
+                right: 20,
+              ),
               items: const [
                 DropdownMenuItem(
                   value: '',
