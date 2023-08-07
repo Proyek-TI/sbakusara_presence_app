@@ -70,6 +70,16 @@ class AdminHistoryScreen extends GetView<AdminHistoryController> {
                     decoration: BoxDecoration(
                       color: AppColorStyle.bgColormain,
                       borderRadius: BorderRadius.circular(18),
+                      border: Border.all(),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 0,
+                          blurRadius: 8,
+                          offset:
+                              const Offset(5, 5), // changes position of shadow
+                        ),
+                      ],
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,28 +97,6 @@ class AdminHistoryScreen extends GetView<AdminHistoryController> {
                                 ),
                               ),
                               const SizedBox(
-                                height: 15,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                      'TIME',
-                                      style: AppTextStyle.helperinfoStyle,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(
-                                      presence.time!,
-                                      style: AppTextStyle.infoinOutStyle,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
                                 height: 12,
                               ),
                               Row(
@@ -117,14 +105,38 @@ class AdminHistoryScreen extends GetView<AdminHistoryController> {
                                   Expanded(
                                     flex: 1,
                                     child: Text(
-                                      'LOCATION',
+                                      'NAME',
                                       style: AppTextStyle.helperinfoStyle,
                                     ),
                                   ),
                                   Expanded(
-                                    flex: 2,
+                                    flex: 3,
                                     child: Text(
-                                      presence.location ?? 'Undefined',
+                                      presence.user!.name!,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.clip,
+                                      style: AppTextStyle.infoinOutStyle,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      'OUT',
+                                      style: AppTextStyle.helperinfoStyle,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 3,
+                                    child: Text(
+                                      presence.time!,
                                       style: AppTextStyle.infoinOutStyle,
                                     ),
                                   ),
@@ -141,7 +153,15 @@ class AdminHistoryScreen extends GetView<AdminHistoryController> {
                               radius: 16,
                               backgroundColor: AppColorStyle.primary100,
                               child: IconButton(
-                                onPressed: () async {},
+                                onPressed: () async {
+                                  await controller.openMap(
+                                    latitude: double.parse(presence.latitude!),
+                                    longitude:
+                                        double.parse(presence.longitude!),
+                                    location:
+                                        presence.location ?? 'Unknown Location',
+                                  );
+                                },
                                 icon: const Icon(
                                   Icons.location_on_sharp,
                                   size: 16,
