@@ -79,6 +79,7 @@ class AdminDetailPresence extends GetView<AdminHistoryController> {
               ),
               Text(
                 presence.location ?? 'Unknown Location',
+                textAlign: TextAlign.center,
               ),
               const SizedBox(
                 height: 40,
