@@ -36,14 +36,7 @@ class UserHomeController extends GetxController {
     update();
   }
 
-  /// open map and show location
-  Future<void> openMap() async {
-    final availableMaps = await MapLauncher.installedMaps;
-    await availableMaps.first.showMarker(
-      coords: coords,
-      title: title,
-    );
-  }
+  
 
   /// get location name n other info
   Future<void> getAddress() async {
@@ -51,5 +44,17 @@ class UserHomeController extends GetxController {
         await addressService.getAddressFromLatLng(-6.707629, 108.4767248);
     title = response;
     update();
+  }
+
+  /// open map and show location
+  Future<void> openMap(
+      {required double latitude,
+      required double longitude,
+      required String location}) async {
+    final availableMaps = await MapLauncher.installedMaps;
+    await availableMaps.first.showMarker(
+      coords: Coords(latitude, longitude),
+      title: location,
+    );
   }
 }
