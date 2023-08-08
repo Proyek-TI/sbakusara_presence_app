@@ -1,18 +1,19 @@
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_color_styles.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_constants.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_text_styles.dart';
-import 'package:sbakusara_presence_app/presentation/user_history/user_detail_history_screen.dart';
+import 'package:sbakusara_presence_app/presentation/admin_history/admin_detail_history_presence.dart';
 
-import 'controllers/user_history_controller.dart';
+import 'controllers/admin_history_controller.dart';
 
-class UserHistoryScreen extends GetView<UserHistoryController> {
-  UserHistoryScreen({Key? key}) : super(key: key);
+class AdminHistoryScreen extends GetView<AdminHistoryController> {
+  AdminHistoryScreen({Key? key}) : super(key: key);
+
   @override
-  final UserHistoryController controller = Get.put(UserHistoryController());
-
+  final AdminHistoryController controller = Get.put(AdminHistoryController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,21 +24,19 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
         centerTitle: true,
         titleSpacing: 0,
         title: Text(
-          'Presensi',
+          'Presence History',
           style: AppTextStyle.appBarTitleStyle.copyWith(
             color: AppColorStyle.textColorblack,
           ),
         ),
         actions: [
-          GetBuilder<UserHistoryController>(
+          GetBuilder<AdminHistoryController>(
             builder: (controller) => DropdownButton(
-              padding: const EdgeInsets.only(
-                right: 20,
-              ),
+              padding: const EdgeInsets.only(top: 5, right: 20),
               items: const [
                 DropdownMenuItem(
-                  value: '',
-                  child: Text('All'),
+                  value: 'daily',
+                  child: Text('Daily'),
                 ),
                 DropdownMenuItem(
                   value: 'weekly',
@@ -48,18 +47,14 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
                   child: Text('Monthly'),
                 ),
               ],
-              onChanged: (value) {
-                if (value != null) {
-                  controller.changePeriod(value);
-                }
-              },
+              onChanged: (value) {},
               underline: const SizedBox.shrink(),
               icon: const Icon(Icons.filter_list_rounded),
             ),
           ),
         ],
       ),
-      body: GetBuilder<UserHistoryController>(
+      body: GetBuilder<AdminHistoryController>(
         builder: (controller) {
           return Padding(
             padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
@@ -68,13 +63,15 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
               itemCount: controller.presenceHistory.length,
               itemBuilder: (context, index) {
                 final presence = controller.presenceHistory[index];
+
                 return InkWell(
                   onTap: () {
                     Get.to(
-                      () => UserDetailPresence(
+                      () => AdminDetailPresence(
                         index: index,
                         presence: presence,
                       ),
+                      transition: Transition.cupertino,
                     );
                   },
                   child: Container(
@@ -111,28 +108,6 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
                                 ),
                               ),
                               const SizedBox(
-                                height: 15,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                      'TIME',
-                                      style: AppTextStyle.helperinfoStyle,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Text(
-                                      presence.time!,
-                                      style: AppTextStyle.infoinOutStyle,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
                                 height: 12,
                               ),
                               Row(
@@ -141,17 +116,39 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
                                   Expanded(
                                     flex: 1,
                                     child: Text(
-                                      'LOCATION',
+                                      'NAME',
                                       style: AppTextStyle.helperinfoStyle,
                                     ),
                                   ),
                                   Expanded(
-                                    flex: 2,
+                                    flex: 3,
                                     child: Text(
-                                      presence.location ?? 'Undefined',
+                                      presence.user!.name!,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.clip,
                                       style: AppTextStyle.infoinOutStyle,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      'OUT',
+                                      style: AppTextStyle.helperinfoStyle,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 3,
+                                    child: Text(
+                                      presence.time!,
+                                      style: AppTextStyle.infoinOutStyle,
                                     ),
                                   ),
                                 ],
@@ -168,13 +165,13 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
                               backgroundColor: AppColorStyle.primary100,
                               child: IconButton(
                                 onPressed: () async {
-                                  controller.openMap(
-                                      latitude:
-                                          double.parse(presence.latitude!),
-                                      longitude:
-                                          double.parse(presence.longitude!),
-                                      location:
-                                          presence.location ?? 'Undefined');
+                                  await controller.openMap(
+                                    latitude: double.parse(presence.latitude!),
+                                    longitude:
+                                        double.parse(presence.longitude!),
+                                    location:
+                                        presence.location ?? 'Unknown Location',
+                                  );
                                 },
                                 icon: const Icon(
                                   Icons.location_on_sharp,
@@ -183,7 +180,7 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
                               ),
                             ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),

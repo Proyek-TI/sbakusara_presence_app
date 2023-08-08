@@ -5,17 +5,17 @@ import 'package:get/get.dart';
 import 'package:sbakusara_presence_app/data/models/presence_history_model.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_color_styles.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_text_styles.dart';
-import 'package:sbakusara_presence_app/presentation/user_history/controllers/user_history_controller.dart';
+import 'package:sbakusara_presence_app/presentation/admin_history/controllers/admin_history_controller.dart';
 
-class UserDetailPresence extends GetView<UserHistoryController> {
-  UserDetailPresence({
+class AdminDetailPresence extends GetView<AdminHistoryController> {
+  AdminDetailPresence({
     super.key,
     required this.index,
     required this.presence,
   });
 
   @override
-  final UserHistoryController controller = Get.put(UserHistoryController());
+  final AdminHistoryController controller = Get.put(AdminHistoryController());
 
   final int index;
   final PresenceModel presence;
@@ -40,7 +40,7 @@ class UserDetailPresence extends GetView<UserHistoryController> {
         centerTitle: true,
         titleSpacing: 0,
         title: Text(
-          "Presence Detail",
+          "${presence.user!.username!}'s Detail",
           style: AppTextStyle.appBarTitleStyle.copyWith(
             color: AppColorStyle.textColorblack,
           ),
@@ -48,22 +48,41 @@ class UserDetailPresence extends GetView<UserHistoryController> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 32),
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
           child: Column(
             children: [
               Text(
                 presence.time!,
-                textAlign: TextAlign.center,
               ),
               const SizedBox(
-                height: 32,
+                height: 20,
+              ),
+              CircleAvatar(
+                radius: 16,
+                backgroundColor: AppColorStyle.primary100,
+                child: IconButton(
+                  onPressed: () async {
+                    await controller.openMap(
+                      latitude: double.parse(presence.latitude!),
+                      longitude: double.parse(presence.longitude!),
+                      location: presence.location ?? 'Unknown Location',
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.location_on_sharp,
+                    size: 16,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
               ),
               Text(
                 presence.location ?? 'Unknown Location',
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
-                height: 32,
+                height: 40,
               ),
               SizedBox(
                 height: 160,

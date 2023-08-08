@@ -9,7 +9,7 @@ class LocationService {
   }
   LocationService._internal();
 
-  Future<bool> _handlerLocationPermission() async {
+  Future<bool> handlerLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -50,7 +50,7 @@ class LocationService {
   }
 
   Future<Position?> getUserLocation() async {
-    final hasPermission = await _handlerLocationPermission();
+    final hasPermission = await handlerLocationPermission();
     if (hasPermission) {
       try {
         final position = await Geolocator.getCurrentPosition(

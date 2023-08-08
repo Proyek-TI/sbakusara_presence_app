@@ -17,6 +17,7 @@ class UserHomeScreen extends GetView<UserHomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColorStyle.bgColormain,
       body: SafeArea(
         bottom: false,
         child: Padding(
@@ -96,8 +97,7 @@ class UserHomeScreen extends GetView<UserHomeController> {
                                           height: 8,
                                         ),
                                         Text(
-                                          controller.homeWidget.checkIn?.time
-                                                  .toString() ??
+                                          controller.homeWidget.checkIn?.time ??
                                               'Belum absen',
                                           style: AppTextStyle
                                               .helperbodyHeadlineStyle
@@ -124,8 +124,8 @@ class UserHomeScreen extends GetView<UserHomeController> {
                                           height: 8,
                                         ),
                                         Text(
-                                          controller.homeWidget.checkOut?.time
-                                                  .toString() ??
+                                          controller
+                                                  .homeWidget.checkOut?.time ??
                                               'Belum absen',
                                           style: AppTextStyle
                                               .helperbodyHeadlineStyle
@@ -157,7 +157,14 @@ class UserHomeScreen extends GetView<UserHomeController> {
                             backgroundColor: AppColorStyle.primary100,
                             child: IconButton(
                               onPressed: () async {
-                                await controller.openMap();
+                                await controller.openMap(
+                                  latitude: double.parse(
+                                      controller.homeWidget.checkIn!.latitude!),
+                                  longitude: double.parse(controller
+                                      .homeWidget.checkIn!.longitude!),
+                                  location:
+                                      controller.homeWidget.checkIn!.location!,
+                                );
                               },
                               icon: const Icon(
                                 Icons.location_on_sharp,
@@ -177,7 +184,14 @@ class UserHomeScreen extends GetView<UserHomeController> {
                   builder: (controller) {
                     return controller.homeWidget.checkIn?.time == 'belum absen'
                         ? const SizedBox.shrink()
-                        : Text(controller.title);
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Text(
+                              controller.homeWidget.checkIn?.location ??
+                                  'Lokasi tidak dikenal',
+                              textAlign: TextAlign.center,
+                            ),
+                          );
                   },
                 ),
 
@@ -193,7 +207,12 @@ class UserHomeScreen extends GetView<UserHomeController> {
                       height: 40,
                       child: ElevatedButton(
                         onPressed: () {
-                          Get.toNamed(Routes.userPresence);
+                          controller.homeWidget.checkIn?.time ==
+                                      'belum absen' ||
+                                  controller.homeWidget.checkOut?.time ==
+                                      'belum absen'
+                              ? Get.toNamed(Routes.userPresence)
+                              : null;
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColorStyle.primary500,

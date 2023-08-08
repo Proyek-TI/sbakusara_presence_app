@@ -23,9 +23,7 @@ class UserDashboardScreen extends GetView<UserDashboardController> {
         builder: (controller) => Container(
           height: 65,
           decoration: BoxDecoration(
-            color: controller.selectedIndex == 1
-                ? AppColorStyle.bgColorsecond
-                : AppColorStyle.bgColormain,
+            color: AppColorStyle.bgColormain,
             boxShadow: [
               BoxShadow(
                 blurRadius: 20,

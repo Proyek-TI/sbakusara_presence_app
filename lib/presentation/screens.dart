@@ -1,4 +1,5 @@
 export 'package:sbakusara_presence_app/presentation/admin_dashboard/admin_dashboard_screen.dart';
+export 'package:sbakusara_presence_app/presentation/admin_history/admin_history_screen.dart';
 export 'package:sbakusara_presence_app/presentation/admin_home/admin_home_screen.dart';
 export 'package:sbakusara_presence_app/presentation/auth/auth_screen.dart';
 export 'package:sbakusara_presence_app/presentation/settings/settings_screen.dart';

@@ -85,14 +85,14 @@ class ApiServices {
         ),
       );
 
-      if (request.statusCode == 200) {
+      if (request.statusCode == 201) {
         Get.snackbar(
           'Berhasil melakukan presensi!',
           'Have a nice day ^-^',
           duration: const Duration(seconds: 5),
         );
         Get.offAllNamed(
-          Routes.userHome,
+          Routes.userDashboard,
         );
       } else {
         Get.snackbar('Error', 'Sesuatu terjadi');
@@ -287,6 +287,31 @@ class ApiServices {
       } else {
         Get.snackbar('Error', 'An error occurred: $e');
       }
+    }
+  }
+
+  /// get presence history for admin
+  Future<List<PresenceModel>> getPresenceHistoryAdmin(String period) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    try {
+      final response = await _dio.get(
+        '/admin/presents',
+        queryParameters: {'period': period},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      List<dynamic> data = response.data['data'];
+      List<PresenceModel> presence =
+          data.map((item) => PresenceModel.fromJson(item)).toList();
+
+      return presence;
+    } catch (e) {
+      throw e.toString();
     }
   }
 }
