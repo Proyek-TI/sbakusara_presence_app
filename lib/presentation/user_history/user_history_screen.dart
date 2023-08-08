@@ -16,10 +16,10 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColorStyle.bgColorsecond,
+      backgroundColor: AppColorStyle.bgColormain,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: AppColorStyle.bgColorsecond,
+        backgroundColor: AppColorStyle.bgColormain,
         centerTitle: true,
         titleSpacing: 0,
         title: Text(
@@ -84,6 +84,16 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
                     decoration: BoxDecoration(
                       color: AppColorStyle.bgColormain,
                       borderRadius: BorderRadius.circular(18),
+                      border: Border.all(),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 0,
+                          blurRadius: 8,
+                          offset:
+                              const Offset(5, 5), // changes position of shadow
+                        ),
+                      ],
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -140,6 +150,8 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
                                     child: Text(
                                       presence.location ?? 'Undefined',
                                       style: AppTextStyle.infoinOutStyle,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
                                 ],
@@ -171,7 +183,7 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
                               ),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),

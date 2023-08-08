@@ -85,14 +85,14 @@ class ApiServices {
         ),
       );
 
-      if (request.statusCode == 200) {
+      if (request.statusCode == 201) {
         Get.snackbar(
           'Berhasil melakukan presensi!',
           'Have a nice day ^-^',
           duration: const Duration(seconds: 5),
         );
         Get.offAllNamed(
-          Routes.userHome,
+          Routes.userDashboard,
         );
       } else {
         Get.snackbar('Error', 'Sesuatu terjadi');

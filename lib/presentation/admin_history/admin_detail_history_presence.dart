@@ -24,6 +24,7 @@ class AdminDetailPresence extends GetView<AdminHistoryController> {
   Widget build(BuildContext context) {
     List<String> urlList = jsonDecode(presence.url!).cast<String>() ?? '';
     return Scaffold(
+      backgroundColor: AppColorStyle.bgColormain,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColorStyle.bgColormain,
@@ -50,6 +51,12 @@ class AdminDetailPresence extends GetView<AdminHistoryController> {
           padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
           child: Column(
             children: [
+              Text(
+                presence.time!,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               CircleAvatar(
                 radius: 16,
                 backgroundColor: AppColorStyle.primary100,
@@ -76,42 +83,29 @@ class AdminDetailPresence extends GetView<AdminHistoryController> {
               const SizedBox(
                 height: 40,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  urlList[0].isNotEmpty
-                      ? Image.network(
-                          urlList[0],
-                          errorBuilder: (context, error, stackTrace) {
-                            return const Icon(Icons.image);
-                          },
-                        )
-                      : const SizedBox.shrink(),
-                  urlList.length != 1
-                      ? Image.network(
-                          urlList[1],
-                          errorBuilder: (context, error, stackTrace) {
-                            return const Icon(Icons.image);
-                          },
-                        )
-                      : const SizedBox.shrink(),
-                ],
+              SizedBox(
+                height: 160,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: urlList.length,
+                  itemBuilder: (context, index) {
+                    final url = urlList[index];
+                    return Container(
+                      margin: const EdgeInsets.only(right: 4),
+                      child: Image.network(
+                        url,
+                        width: 160,
+                        height: 160,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.image);
+                        },
+                      ),
+                    );
+                  },
+                ),
               ),
-
-              // Expanded(
-              //   child: ListView.builder(
-              //     shrinkWrap: true,
-              //     itemCount: urlList.length,
-              //     itemBuilder: (context, index) {
-              //       return Image.network(
-              //         urlList[index],
-              //         errorBuilder: (context, error, stackTrace) {
-              //           return const Icon(Icons.image);
-              //         },
-              //       );
-              //     },
-              //   ),
-              // ),
             ],
           ),
         ),
