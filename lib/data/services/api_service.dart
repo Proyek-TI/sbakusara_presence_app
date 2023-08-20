@@ -106,7 +106,7 @@ class ApiServices {
           Routes.userDashboard,
         );
       } else {
-        Get.snackbar('Error', 'An error occurred: $e');
+        Get.snackbar('Error', 'Terjadi kesalahan');
       }
     }
   }
@@ -133,7 +133,7 @@ class ApiServices {
   }
 
   /// get presence history for employee
-  Future<List<PresenceModel>> getPresenceHistory(String period) async {
+  Future<List<PresenceModel>?> getPresenceHistory(String period) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     try {
@@ -147,9 +147,9 @@ class ApiServices {
         ),
       );
 
-      List<dynamic> data = response.data['data'];
-      List<PresenceModel> presence =
-          data.map((item) => PresenceModel.fromJson(item)).toList();
+      List<dynamic>? data = response.data['data'];
+      List<PresenceModel>? presence =
+          data?.map((item) => PresenceModel.fromJson(item)).toList();
 
       return presence;
     } catch (e) {
@@ -291,7 +291,7 @@ class ApiServices {
   }
 
   /// get presence history for admin
-  Future<List<PresenceModel>> getPresenceHistoryAdmin(String period) async {
+  Future<List<PresenceModel>?> getPresenceHistoryAdmin(String period) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     try {
@@ -305,9 +305,9 @@ class ApiServices {
         ),
       );
 
-      List<dynamic> data = response.data['data'];
-      List<PresenceModel> presence =
-          data.map((item) => PresenceModel.fromJson(item)).toList();
+      List<dynamic>? data = response.data['data'];
+      List<PresenceModel>? presence =
+          data?.map((item) => PresenceModel.fromJson(item)).toList();
 
       return presence;
     } catch (e) {

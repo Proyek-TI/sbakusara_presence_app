@@ -12,7 +12,7 @@ class AdminHistoryController extends GetxController {
 
   final apiService = ApiServices();
 
-  List<PresenceModel> presenceHistory = [];
+  List<PresenceModel>? presenceHistory = [];
 
   // filter data
   String selectedPeriod = "";
@@ -26,7 +26,6 @@ class AdminHistoryController extends GetxController {
   void changePeriod(String newSelectedPeriod) {
     selectedPeriod = newSelectedPeriod;
     update();
-    getPresenceHistory();
   }
 
   /// open map and show location

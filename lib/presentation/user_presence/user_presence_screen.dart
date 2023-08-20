@@ -170,11 +170,7 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
                     ),
                   ),
                   child: Text(
-                    controller.homeWidget.checkIn?.time == 'belum absen' &&
-                            controller.homeWidget.checkOut?.time ==
-                                'belum absen'
-                        ? 'Tap untuk presensi'
-                        : 'Tap untuk Check Out',
+                    'Tap untuk presensi',
                     style: AppTextStyle.labelTextStyle,
                   ),
                 ),

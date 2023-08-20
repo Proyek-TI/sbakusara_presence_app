@@ -17,7 +17,7 @@ class UserHistoryController extends GetxController {
   // filter data
   String selectedPeriod = "";
 
-  List<PresenceModel> presenceHistory = [];
+  List<PresenceModel>? presenceHistory = [];
 
   // get location name
   String title = "Lokasi saya";
@@ -54,8 +54,10 @@ class UserHistoryController extends GetxController {
 
   /// get presence history
   Future<void> getUserPresenceHistory() async {
+    // changePeriod(selectedPeriod);
     final response = await apiService.getPresenceHistory(selectedPeriod);
     presenceHistory = response;
+
     update();
   }
 
@@ -63,6 +65,5 @@ class UserHistoryController extends GetxController {
   void changePeriod(String newSelectedPeriod) {
     selectedPeriod = newSelectedPeriod;
     update();
-    getUserPresenceHistory();
   }
 }
