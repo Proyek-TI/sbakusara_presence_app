@@ -109,7 +109,7 @@ class AddEmployeeScreen extends StatelessWidget {
                     controller: controller.passC,
                     textInputAction: TextInputAction.next,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) => controller.validateUname(value),
+                    validator: (value) => controller.validatePassword(value),
                     obscureText: controller.passwordObscureText,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(

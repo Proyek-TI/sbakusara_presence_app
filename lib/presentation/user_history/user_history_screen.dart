@@ -40,8 +40,8 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
                   child: Text('All'),
                 ),
                 DropdownMenuItem(
-                  value: 'daily',
-                  child: Text('Daily'),
+                  value: 'today',
+                  child: Text('Today'),
                 ),
                 DropdownMenuItem(
                   value: 'weekly',
@@ -68,7 +68,7 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
         builder: (controller) {
           if (controller.presenceHistory == null) {
             return const Center(
-              child: Text('No presence history yet'),
+              child: Text('Belum ada riwayat presensi'),
             );
           } else {
             return Padding(

@@ -64,11 +64,7 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
             GetBuilder<UserPresenceController>(
               builder: (controller) => OutlinedButton(
                 onPressed: () async {
-                  if (controller.willUploadedImages.length <= 1) {
-                    await controller.selectImage();
-                  } else {
-                    null;
-                  }
+                  await controller.selectImage();
                 },
                 style: ButtonStyle(
                   side: const MaterialStatePropertyAll(
@@ -156,11 +152,11 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () async {
-                    if (controller.selectedImages.length <= 2) {
+                    if (controller.willUploadedImages.length >= 2) {
                       await controller.createPresence();
                     } else {
                       Get.snackbar('Tidak bisa melakukan presensi',
-                          'Gambarnya cukup 2 saja ya!');
+                          'Gambarnya harus lebih dari 2 ya!');
                     }
                   },
                   style: ElevatedButton.styleFrom(
