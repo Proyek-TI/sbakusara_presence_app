@@ -101,7 +101,6 @@ class ApiServices {
       if (e.toString().contains(400.toString())) {
         Get.snackbar(
             'Gagal Melakukan Presensi!', 'Kamu sudah melakukan presensi');
-        // Get.back();
         Get.offAllNamed(
           Routes.userDashboard,
         );
@@ -154,6 +153,46 @@ class ApiServices {
       return presence;
     } catch (e) {
       throw e.toString();
+    }
+  }
+
+  /// change password
+  Future<void> userChangePassword(
+      String oldPass, String newPass, String confirmNewPass) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    Map data = {
+      'old_password': oldPass,
+      'new_password': newPass,
+      'confirm_password': confirmNewPass,
+    };
+
+    try {
+      final request = await _dio.put(
+        '/users/password',
+        data: data,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      if (request.statusCode == 200) {
+        Get.snackbar(
+          'Sukses',
+          'Berhasil mengganti password',
+          duration: const Duration(seconds: 5),
+        );
+      } else {
+        Get.snackbar('Error', 'Password lama tidak terdaftar');
+      }
+    } catch (e) {
+      if (e.toString().contains(400.toString())) {
+        Get.snackbar('Gagal mengganti password!', 'Kesalahan terjadi');
+      } else {
+        Get.snackbar('Error!', 'Kesalahan terjadi');
+      }
     }
   }
 

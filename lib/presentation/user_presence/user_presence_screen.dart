@@ -152,9 +152,14 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
                 height: 40,
                 child: ElevatedButton(
                   onPressed: () async {
+                    if (controller.isMockLocation == true) {
+                      await controller.mockLocationStatus();
+                    }
+
                     if (controller.willUploadedImages.length >= 2) {
-                      await controller.createPresence();
+                      controller.createPresence();
                     } else {
+                      // controller.mockLocationStatus();
                       Get.snackbar('Tidak bisa melakukan presensi',
                           'Gambarnya harus lebih dari 2 ya!');
                     }

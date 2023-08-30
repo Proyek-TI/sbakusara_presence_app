@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_color_styles.dart';
 import 'package:sbakusara_presence_app/domain/core/constants/app_text_styles.dart';
-import 'package:sbakusara_presence_app/presentation/settings/about_screen.dart';
+import 'package:sbakusara_presence_app/presentation/settings/change_user_password_screen.dart';
 
 import 'controllers/settings_controller.dart';
 
@@ -29,12 +29,12 @@ class SettingsScreen extends GetView<SettingsController> {
               ListTile(
                 onTap: () {
                   Get.to(
-                    const AboutScreen(),
+                    () => ChangePasswordUser(),
                     transition: Transition.cupertino,
                   );
                 },
                 title: Text(
-                  'Tentang Aplikasi',
+                  'Change Password',
                   style: AppTextStyle.tileTitleStyle,
                 ),
                 trailing: const Icon(

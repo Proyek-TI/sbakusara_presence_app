@@ -2,17 +2,24 @@
 
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sbakusara_presence_app/data/models/home_model.dart';
 import 'package:sbakusara_presence_app/data/services/api_service.dart';
 import 'package:sbakusara_presence_app/data/services/location_service.dart';
+import 'package:sbakusara_presence_app/domain/core/constants/app_color_styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trust_location/trust_location.dart';
 
 class UserPresenceController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    isUserMockLocation();
     await getUserLocation();
+    // mockLocationStatus();
   }
 
   @override
@@ -28,6 +35,7 @@ class UserPresenceController extends GetxController {
 
   double? latitude;
   double? longitude;
+  bool? isMockLocation;
 
   List<XFile> selectedImages = [];
   List<File> willUploadedImages = [];
@@ -65,6 +73,84 @@ class UserPresenceController extends GetxController {
     update();
   }
 
+  Future<void> isUserMockLocation() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    TrustLocation.start(5);
+    isMockLocation = await TrustLocation.isMockLocation;
+
+    TrustLocation.onChange.listen(
+      (values) {
+        debugPrint(
+            '${values.latitude} ${values.longitude} ${values.isMockLocation}');
+
+        if (values.isMockLocation == true) {
+          Get.dialog(
+            barrierDismissible: false,
+            AlertDialog(
+              title: const Text(
+                'Anda terdeteksi menggunakan FakeGPS',
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    prefs.clear();
+                    SystemNavigator.pop();
+                  },
+                  child: const Text(
+                    'Mengerti',
+                    style: TextStyle(color: AppColorStyle.primary500),
+                  ),
+                ),
+              ],
+            ),
+          );
+
+          update();
+        } else {
+          null;
+        }
+      },
+    );
+
+    update();
+  }
+
+  /// check user mock location
+  Future<void> mockLocationStatus() async {
+    if (isMockLocation == true) {
+      // Get.dialog(
+      //   AlertDialog(
+      //     title: const Text(
+      //       'Anda terdeteksi menggunakan FakeGPS',
+      //     ),
+      //     actions: [
+      //       TextButton(
+      //         onPressed: () {
+      //           Get.offAll(
+      //             SplashScreen(),
+      //           );
+      //         },
+      //         child: const Text(
+      //           'Mengerti',
+      //           style: TextStyle(color: AppColorStyle.bgColormain),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // );
+      Get.snackbar(
+        'Ayyo Beech',
+        'Anda terdeteksi mau nuyul',
+        duration: const Duration(
+          seconds: 100,
+        ),
+      );
+      update();
+    } else {
+      null;
+    }
+  }
+
   /// enable gps and get user location
   Future<void> getUserLocation() async {
     final location = await locationService.getUserLocation().then(
@@ -76,6 +162,7 @@ class UserPresenceController extends GetxController {
         }
       },
     );
+
     if (location != null) {
       latitude = location.latitude;
       longitude = location.longitude;

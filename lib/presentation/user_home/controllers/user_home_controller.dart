@@ -18,12 +18,14 @@ class UserHomeController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
+
     await getHomeWidget();
     await getAddress();
   }
 
   final apiServices = ApiServices();
   final addressService = AddressService();
+  bool? isMockLocation;
   HomeModel homeWidget = HomeModel();
 
   final coords = Coords(-6.707629, 108.4767248);
@@ -35,8 +37,6 @@ class UserHomeController extends GetxController {
     homeWidget = response;
     update();
   }
-
-  
 
   /// get location name n other info
   Future<void> getAddress() async {

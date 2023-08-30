@@ -51,10 +51,12 @@ class LocationService {
 
   Future<Position?> getUserLocation() async {
     final hasPermission = await handlerLocationPermission();
+
     if (hasPermission) {
       try {
         final position = await Geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.high);
+        
         return position;
       } catch (e) {
         debugPrint(e.toString());
