@@ -30,6 +30,7 @@ class UserPresenceController extends GetxController {
   }
 
   bool isLoading = false;
+  bool isAlertDialogShown = false;
 
   HomeModel homeWidget = HomeModel();
 
@@ -86,7 +87,8 @@ class UserPresenceController extends GetxController {
         debugPrint(
             '${values.latitude} ${values.longitude} ${values.isMockLocation}');
 
-        if (values.isMockLocation == true) {
+        if (values.isMockLocation == true && !isAlertDialogShown) {
+          isAlertDialogShown = true;
           Get.dialog(
             barrierDismissible: false,
             AlertDialog(
