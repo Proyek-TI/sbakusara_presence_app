@@ -141,28 +141,36 @@ class ChangePasswordUser extends GetView<SettingsController> {
                       width: Get.width,
                       height: 40,
                       child: GetBuilder<SettingsController>(
-                        builder: (controller) => ElevatedButton(
-                          onPressed: () async {
-                            await controller.changePassword(
-                                controller.oldPassC.text,
-                                controller.newPassC.text,
-                                controller.confirmPassC.text);
-                            controller.oldPassC.clear();
-                            controller.newPassC.clear();
-                            controller.confirmPassC.clear();
-                            Navigator.pop(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColorStyle.primary500,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                          ),
-                          child: Text(
-                            'Change Password',
-                            style: AppTextStyle.labelTextStyle,
-                          ),
-                        ),
+                        builder: (controller) {
+                          if (controller.isLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else {
+                            return ElevatedButton(
+                              onPressed: () async {
+                                await controller.changePassword(
+                                    controller.oldPassC.text,
+                                    controller.newPassC.text,
+                                    controller.confirmPassC.text);
+                                controller.oldPassC.clear();
+                                controller.newPassC.clear();
+                                controller.confirmPassC.clear();
+                                Navigator.pop(context);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColorStyle.primary500,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                              ),
+                              child: Text(
+                                'Change Password',
+                                style: AppTextStyle.labelTextStyle,
+                              ),
+                            );
+                          }
+                        },
                       ),
                     ),
                   ),

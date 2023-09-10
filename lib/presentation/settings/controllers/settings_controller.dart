@@ -13,6 +13,8 @@ class SettingsController extends GetxController {
     confirmPassC.clear();
   }
 
+  bool isLoading = false;
+
   final apiService = ApiServices();
 
   final GlobalKey<FormState> changePassKey = GlobalKey<FormState>();
@@ -46,14 +48,21 @@ class SettingsController extends GetxController {
   }
 
   Future<void> logout() async {
+    isLoading = true;
+    update();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
-    update();
     Get.offAllNamed(Routes.auth);
+    isLoading = false;
+    update();
   }
 
   Future<void> changePassword(
       String oldPass, String newPass, String confirmNewPass) async {
+    isLoading = true;
+    update();
     await apiService.userChangePassword(oldPass, newPass, confirmNewPass);
+    isLoading = false;
+    update();
   }
 }

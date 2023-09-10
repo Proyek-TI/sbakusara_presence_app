@@ -10,6 +10,8 @@ class AdminHomeController extends GetxController {
     getEmployeeList();
   }
 
+  bool isLoading = false;
+
   final apiService = ApiServices();
 
   List<EmployeeModel> employeeList = [];
@@ -92,7 +94,10 @@ class AdminHomeController extends GetxController {
     String email,
     String password,
   ) async {
+    isLoading = true;
+    update();
     await apiService.addEmployee(name, uname, email, password);
+    isLoading = false;
     update();
   }
 
@@ -110,14 +115,20 @@ class AdminHomeController extends GetxController {
     String email,
     String password,
   ) async {
+    isLoading = true;
+    update();
     await apiService.editEmployee(id, name, uname, email, password);
+    isLoading = false;
     update();
   }
 
   /// get employee list
   Future<void> getEmployeeList() async {
+    isLoading = true;
+    update();
     final response = await apiService.getEmployeeList();
     employeeList = response;
+    isLoading = false;
     update();
   }
 }

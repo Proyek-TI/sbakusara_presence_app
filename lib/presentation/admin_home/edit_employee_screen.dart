@@ -142,28 +142,37 @@ class EditEmployeeScreen extends StatelessWidget {
                     width: Get.width,
                     height: 40,
                     child: GetBuilder<AdminHomeController>(
-                      builder: (controller) => ElevatedButton(
-                        onPressed: () async {
-                          if (editEmployeeFormKey.currentState!.validate()) {
-                            await controller.editEmployee(
-                                employee.id!,
-                                controller.editNameC.text,
-                                controller.editUnameC.text,
-                                controller.editEmailC.text,
-                                controller.editPassC.text);
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColorStyle.primary500,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                        ),
-                        child: Text(
-                          'Edit Data Karyawan',
-                          style: AppTextStyle.labelTextStyle,
-                        ),
-                      ),
+                      builder: (controller) {
+                        if (controller.isLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          return ElevatedButton(
+                            onPressed: () async {
+                              if (editEmployeeFormKey.currentState!
+                                  .validate()) {
+                                await controller.editEmployee(
+                                    employee.id!,
+                                    controller.editNameC.text,
+                                    controller.editUnameC.text,
+                                    controller.editEmailC.text,
+                                    controller.editPassC.text);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColorStyle.primary500,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                            ),
+                            child: Text(
+                              'Edit Data Karyawan',
+                              style: AppTextStyle.labelTextStyle,
+                            ),
+                          );
+                        }
+                      },
                     ),
                   ),
                 ),

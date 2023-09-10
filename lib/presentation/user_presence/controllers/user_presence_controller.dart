@@ -26,7 +26,10 @@ class UserPresenceController extends GetxController {
   void onClose() async {
     super.onClose();
     await getHomeWidget();
+    isUserMockLocation();
   }
+
+  bool isLoading = false;
 
   HomeModel homeWidget = HomeModel();
 
@@ -173,8 +176,11 @@ class UserPresenceController extends GetxController {
 
   /// create presence
   Future<void> createPresence() async {
+    isLoading = true;
+    update();
     await apiService.createPresence(
         latitude.toString(), longitude.toString(), willUploadedImages);
+    isLoading = false;
     update();
   }
 

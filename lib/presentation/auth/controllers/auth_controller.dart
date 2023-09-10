@@ -12,6 +12,8 @@ class AuthController extends GetxController {
     passC.dispose();
   }
 
+  bool isLoading = false;
+
   final apiService = ApiServices();
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
@@ -56,7 +58,10 @@ class AuthController extends GetxController {
 
   ///login
   Future<void> userLogin(String username, String password) async {
+    isLoading = true;
+    update();
     await apiService.login(username, password);
+    isLoading = false;
     update();
   }
 }

@@ -146,35 +146,43 @@ class UserPresenceScreen extends GetView<UserPresenceController> {
             const SizedBox(
               height: 48,
             ),
-            GetBuilder<UserPresenceController>(
-              builder: (controller) => SizedBox(
-                width: Get.width,
-                height: 40,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    if (controller.isMockLocation == true) {
-                      await controller.mockLocationStatus();
-                    }
+            SizedBox(
+              width: Get.width,
+              height: 40,
+              child: GetBuilder<UserPresenceController>(
+                builder: (controller) {
+                  if (controller.isLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return ElevatedButton(
+                      onPressed: () async {
+                        if (controller.isMockLocation == true) {
+                          await controller.mockLocationStatus();
+                        }
 
-                    if (controller.willUploadedImages.length >= 2) {
-                      controller.createPresence();
-                    } else {
-                      // controller.mockLocationStatus();
-                      Get.snackbar('Tidak bisa melakukan presensi',
-                          'Gambarnya harus lebih dari 2 ya!');
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColorStyle.primary500,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                  ),
-                  child: Text(
-                    'Tap untuk presensi',
-                    style: AppTextStyle.labelTextStyle,
-                  ),
-                ),
+                        if (controller.willUploadedImages.length >= 2) {
+                          controller.createPresence();
+                        } else {
+                          // controller.mockLocationStatus();
+                          Get.snackbar('Tidak bisa melakukan presensi',
+                              'Gambarnya harus lebih dari 2 ya!');
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColorStyle.primary500,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                      child: Text(
+                        'Tap untuk presensi',
+                        style: AppTextStyle.labelTextStyle,
+                      ),
+                    );
+                  }
+                },
               ),
             ),
             const SizedBox(

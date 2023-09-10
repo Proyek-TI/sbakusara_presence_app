@@ -34,142 +34,150 @@ class AdminHomeScreen extends GetView<AdminHomeController> {
           ),
         ),
       ),
-      body: GetBuilder<AdminHomeController>(
-        builder: (controller) {
-          return Padding(
-            padding: const EdgeInsets.only(
-              left: 20,
-              right: 20,
-              top: 30,
-            ),
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: controller.employeeList.length,
-              itemBuilder: (context, index) {
-                final employee = controller.employeeList[index];
-                return InkWell(
-                  onTap: () {
-                    Get.to(
-                      () => EmployeeDetailScreen(
-                        index: index,
-                        employee: employee,
-                      ),
-                      transition: Transition.cupertino,
-                    );
-                  },
-                  child: SwipeActionCell(
-                    key: key ?? const Key(''),
-                    leadingActions: [
-                      SwipeAction(
-                        onTap: (handler) {
-                          Get.to(
-                            () => EditEmployeeScreen(employee: employee),
-                            transition: Transition.cupertino,
-                          );
-                        },
-                        color: AppColorStyle.bgColormain,
-                        content: Container(
-                          margin: const EdgeInsets.only(bottom: 12),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: AppColorStyle.primary500,
-                          ),
-                          width: 58,
-                          // height: 104,
-                          child: Container(
+      body: Padding(
+        padding: const EdgeInsets.only(
+          left: 20,
+          right: 20,
+          top: 30,
+        ),
+        child: GetBuilder<AdminHomeController>(
+          builder: (controller) {
+            if (controller.employeeList.isEmpty) {
+              return const Text('No data yet');
+            } else if (controller.isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: controller.employeeList.length,
+                itemBuilder: (context, index) {
+                  final employee = controller.employeeList[index];
+                  return InkWell(
+                    onTap: () {
+                      Get.to(
+                        () => EmployeeDetailScreen(
+                          index: index,
+                          employee: employee,
+                        ),
+                        transition: Transition.cupertino,
+                      );
+                    },
+                    child: SwipeActionCell(
+                      key: key ?? const Key(''),
+                      leadingActions: [
+                        SwipeAction(
+                          onTap: (handler) {
+                            Get.to(
+                              () => EditEmployeeScreen(employee: employee),
+                              transition: Transition.cupertino,
+                            );
+                          },
+                          color: AppColorStyle.bgColormain,
+                          content: Container(
+                            margin: const EdgeInsets.only(bottom: 12),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               color: AppColorStyle.primary500,
                             ),
                             width: 58,
                             // height: 104,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: AppColorStyle.primary500,
+                              ),
+                              width: 58,
+                              // height: 104,
+                              child: const OverflowBox(
+                                maxWidth: double.infinity,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.edit,
+                                      color: AppColorStyle.bgColormain,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                      trailingActions: [
+                        SwipeAction(
+                          color: AppColorStyle.bgColormain,
+                          content: Container(
+                            margin: const EdgeInsets.only(bottom: 12),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: AppColorStyle.dangerColor500,
+                            ),
+                            width: 58,
+                            height: 104,
                             child: const OverflowBox(
                               maxWidth: double.infinity,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
-                                    Icons.edit,
+                                    Icons.delete_outline,
                                     color: AppColorStyle.bgColormain,
                                   ),
                                 ],
                               ),
                             ),
                           ),
+                          onTap: (handler) {
+                            controller.deletemployee(employee.id!);
+                            controller.getEmployeeList();
+                          },
                         ),
-                      ),
-                    ],
-                    trailingActions: [
-                      SwipeAction(
-                        color: AppColorStyle.bgColormain,
-                        content: Container(
-                          margin: const EdgeInsets.only(bottom: 12),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: AppColorStyle.dangerColor500,
-                          ),
-                          width: 58,
-                          height: 104,
-                          child: const OverflowBox(
-                            maxWidth: double.infinity,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.delete_outline,
-                                  color: AppColorStyle.bgColormain,
-                                ),
-                              ],
+                      ],
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 16),
+                        padding: const EdgeInsets.only(
+                            left: 12, right: 12, top: 12, bottom: 24),
+                        decoration: BoxDecoration(
+                          color: AppColorStyle.bgColormain,
+                          borderRadius: BorderRadius.circular(18),
+                          border: Border.all(),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 8,
+                              offset: const Offset(
+                                  5, 5), // changes position of shadow
                             ),
-                          ),
+                          ],
                         ),
-                        onTap: (handler) {
-                          controller.deletemployee(employee.id!);
-                          controller.getEmployeeList();
-                        },
-                      ),
-                    ],
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 16),
-                      padding: const EdgeInsets.only(
-                          left: 12, right: 12, top: 12, bottom: 24),
-                      decoration: BoxDecoration(
-                        color: AppColorStyle.bgColormain,
-                        borderRadius: BorderRadius.circular(18),
-                        border: Border.all(),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 8,
-                            offset: const Offset(
-                                5, 5), // changes position of shadow
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            employee.name!,
-                            style: AppTextStyle.bodyMediumStyle,
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          Text(
-                            employee.username!,
-                            style: AppTextStyle.helperinfoStyle,
-                          ),
-                        ],
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              employee.name!,
+                              style: AppTextStyle.bodyMediumStyle,
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            Text(
+                              employee.username!,
+                              style: AppTextStyle.helperinfoStyle,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
-            ),
-          );
-        },
+                  );
+                },
+              );
+            }
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
