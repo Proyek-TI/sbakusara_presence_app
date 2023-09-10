@@ -70,6 +70,10 @@ class UserHistoryScreen extends GetView<UserHistoryController> {
             return const Center(
               child: Text('Belum ada riwayat presensi'),
             );
+          } else if (controller.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           } else {
             return Padding(
               padding: const EdgeInsets.only(top: 30, left: 20, right: 20),

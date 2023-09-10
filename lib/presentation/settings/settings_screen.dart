@@ -43,31 +43,39 @@ class SettingsScreen extends GetView<SettingsController> {
                 ),
               ),
               const Spacer(),
-              GetBuilder<SettingsController>(
-                builder: (controller) => Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                  ),
-                  margin: const EdgeInsets.only(
-                    bottom: 16,
-                  ),
-                  width: Get.width,
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      controller.logout();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColorStyle.dangerColor500,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                    ),
-                    child: Text(
-                      'Logout',
-                      style: AppTextStyle.labelTextStyle,
-                    ),
-                  ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                ),
+                margin: const EdgeInsets.only(
+                  bottom: 16,
+                ),
+                width: Get.width,
+                height: 40,
+                child: GetBuilder<SettingsController>(
+                  builder: (controller) {
+                    if (controller.isLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      return ElevatedButton(
+                        onPressed: () {
+                          controller.logout();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColorStyle.dangerColor500,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                        ),
+                        child: Text(
+                          'Logout',
+                          style: AppTextStyle.labelTextStyle,
+                        ),
+                      );
+                    }
+                  },
                 ),
               ),
             ],

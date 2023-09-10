@@ -10,6 +10,8 @@ class AdminHistoryController extends GetxController {
     getPresenceHistory();
   }
 
+  bool isLoading = false;
+
   final apiService = ApiServices();
 
   List<PresenceModel>? presenceHistory = [];
@@ -18,8 +20,11 @@ class AdminHistoryController extends GetxController {
   String selectedPeriod = "";
 
   Future<void> getPresenceHistory() async {
+    isLoading = true;
+    update();
     final response = await apiService.getPresenceHistoryAdmin(selectedPeriod);
     presenceHistory = response;
+    isLoading = false;
     update();
   }
 

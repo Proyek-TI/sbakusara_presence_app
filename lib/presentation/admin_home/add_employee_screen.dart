@@ -138,28 +138,36 @@ class AddEmployeeScreen extends StatelessWidget {
                     width: Get.width,
                     height: 40,
                     child: GetBuilder<AdminHomeController>(
-                      builder: (controller) => ElevatedButton(
-                        onPressed: () async {
-                          if (controller.addEmployeeFormKey.currentState!
-                              .validate()) {
-                            controller.addNewEmployee(
-                                controller.nameC.text,
-                                controller.unameC.text,
-                                controller.emailC.text,
-                                controller.passC.text);
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColorStyle.primary500,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                        ),
-                        child: Text(
-                          'Tambahkan Karyawan',
-                          style: AppTextStyle.labelTextStyle,
-                        ),
-                      ),
+                      builder: (controller) {
+                        if (controller.isLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          return ElevatedButton(
+                            onPressed: () async {
+                              if (controller.addEmployeeFormKey.currentState!
+                                  .validate()) {
+                                controller.addNewEmployee(
+                                    controller.nameC.text,
+                                    controller.unameC.text,
+                                    controller.emailC.text,
+                                    controller.passC.text);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColorStyle.primary500,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                            ),
+                            child: Text(
+                              'Tambahkan Karyawan',
+                              style: AppTextStyle.labelTextStyle,
+                            ),
+                          );
+                        }
+                      },
                     ),
                   ),
                 ),

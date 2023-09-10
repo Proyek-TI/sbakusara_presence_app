@@ -11,6 +11,8 @@ class UserHistoryController extends GetxController {
     getUserPresenceHistory();
   }
 
+  bool isLoading = false;
+
   final apiService = ApiServices();
   final addressService = AddressService();
 
@@ -55,9 +57,11 @@ class UserHistoryController extends GetxController {
   /// get presence history
   Future<void> getUserPresenceHistory() async {
     // changePeriod(selectedPeriod);
+    isLoading = true;
+    update();
     final response = await apiService.getPresenceHistory(selectedPeriod);
     presenceHistory = response;
-
+    isLoading = false;
     update();
   }
 

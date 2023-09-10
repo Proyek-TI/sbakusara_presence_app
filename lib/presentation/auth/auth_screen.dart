@@ -94,25 +94,34 @@ class AuthScreen extends GetView<AuthController> {
                     width: Get.width,
                     height: 40,
                     child: GetBuilder<AuthController>(
-                      builder: (controller) => ElevatedButton(
-                        onPressed: () async {
-                          if (controller.loginFormKey.currentState!
-                              .validate()) {
-                            await controller.userLogin(
-                                controller.unameC.text, controller.passC.text);
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColorStyle.primary500,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                        ),
-                        child: Text(
-                          'Login',
-                          style: AppTextStyle.labelTextStyle,
-                        ),
-                      ),
+                      builder: (controller) {
+                        if (controller.isLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          return ElevatedButton(
+                            onPressed: () async {
+                              if (controller.loginFormKey.currentState!
+                                  .validate()) {
+                                await controller.userLogin(
+                                    controller.unameC.text,
+                                    controller.passC.text);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColorStyle.primary500,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                            ),
+                            child: Text(
+                              'Login',
+                              style: AppTextStyle.labelTextStyle,
+                            ),
+                          );
+                        }
+                      },
                     ),
                   ),
                 ],

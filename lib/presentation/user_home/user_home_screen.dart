@@ -199,39 +199,45 @@ class UserHomeScreen extends GetView<UserHomeController> {
                   height: 36,
                 ),
 
-                GetBuilder<UserHomeController>(
-                  builder: (controller) {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      width: Get.width,
-                      height: 40,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          controller.homeWidget.checkIn?.time ==
-                                      'belum absen' ||
-                                  controller.homeWidget.checkOut?.time ==
-                                      'belum absen'
-                              ? Get.toNamed(Routes.userPresence)
-                              : null;
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColorStyle.primary500,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  width: Get.width,
+                  height: 40,
+                  child: GetBuilder<UserHomeController>(
+                    builder: (controller) {
+                      if (controller.isLoading) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        return ElevatedButton(
+                          onPressed: () {
+                            controller.homeWidget.checkIn?.time ==
+                                        'belum absen' ||
+                                    controller.homeWidget.checkOut?.time ==
+                                        'belum absen'
+                                ? Get.toNamed(Routes.userPresence)
+                                : null;
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColorStyle.primary500,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100),
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          controller.homeWidget.checkIn?.time ==
-                                      'belum absen' &&
-                                  controller.homeWidget.checkOut?.time ==
-                                      'belum absen'
-                              ? 'Tap untuk presensi'
-                              : 'Tap untuk Check Out',
-                          style: AppTextStyle.labelTextStyle,
-                        ),
-                      ),
-                    );
-                  },
+                          child: Text(
+                            controller.homeWidget.checkIn?.time ==
+                                        'belum absen' &&
+                                    controller.homeWidget.checkOut?.time ==
+                                        'belum absen'
+                                ? 'Tap untuk presensi'
+                                : 'Tap untuk Check Out',
+                            style: AppTextStyle.labelTextStyle,
+                          ),
+                        );
+                      }
+                    },
+                  ),
                 ),
               ],
             ),

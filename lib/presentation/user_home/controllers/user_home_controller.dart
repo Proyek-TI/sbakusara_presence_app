@@ -23,6 +23,8 @@ class UserHomeController extends GetxController {
     await getAddress();
   }
 
+  bool isLoading = false;
+
   final apiServices = ApiServices();
   final addressService = AddressService();
   bool? isMockLocation;
@@ -33,16 +35,22 @@ class UserHomeController extends GetxController {
 
   /// get home check in n check out info
   Future<void> getHomeWidget() async {
+    isLoading = true;
+    update();
     final response = await apiServices.getHomeWidget();
     homeWidget = response;
+    isLoading = false;
     update();
   }
 
   /// get location name n other info
   Future<void> getAddress() async {
+    isLoading = true;
+    update();
     final response =
         await addressService.getAddressFromLatLng(-6.707629, 108.4767248);
     title = response;
+     isLoading = false;
     update();
   }
 
